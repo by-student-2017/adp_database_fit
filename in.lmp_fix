@@ -1,0 +1,59 @@
+# Monte Carlo relaxation of perturbed 3d lattice
+clear
+
+# ----- condition settings -----
+variable        temp         index 0.001 # K
+
+timestep        1.0 # fs
+
+# ----- Structure settings -----
+units           metal
+atom_style      atomic
+dimension       3
+boundary        p p p
+box             tilt large
+read_data       data_fix.in
+replicate       1 1 1
+
+# ----- Potential settings (ADP)----
+# -----(DYNAMO, adp_database)
+pair_style      adp
+pair_coeff      * * Cu_Zhou04.adp Cu
+
+neighbor        0.3 bin
+neigh_modify    delay 0 every 1 check yes
+
+variable        e equal etotal
+
+variable        pxxl equal pxx
+variable        pyyl equal pyy
+variable        pzzl equal pzz
+variable        pxyl equal pxy
+variable        pxzl equal pxz
+variable        pyzl equal pyz
+
+# ----- Output setting -----
+thermo_style    custom step etotal temp pxx pyy pzz pxy pxz pyz
+thermo          1
+#dump            d1 all cfg 1 cfg/run.*.cfg mass type xs ys zs id type
+#dump_modify     d1 element Zn
+dump            dynaphopy all custom 1 trajectory.lammpstrj x y z vx vy vz fx fy fz
+#dump_modify     dynaphopy sort id
+dump_modify     dynaphopy format line "%16.10f %16.10f %16.10f %16.10f %16.10f %16.10f %16.10f %16.10f %16.10f"
+#
+# ----- Equilibriation -----
+#velocity        all create ${temp} 123456
+#fix             f1 all nvt temp ${temp} ${temp} 100
+run             0
+
+print           "Total Energy = $e [eV]"
+
+print           "pxxl = ${pxxl}"
+print           "pyyl = ${pyyl}"
+print           "pzzl = ${pzzl}"
+print           "pxyl = ${pxyl}"
+print           "pxzl = ${pxzl}"
+print           "pyzl = ${pyzl}"
+
+# ----- Output restart data -----
+write_data data.in.restart
