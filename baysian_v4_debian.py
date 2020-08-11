@@ -11,10 +11,10 @@ cif2cell_adress = "cif2cell"
 
 commands.getoutput("setenv OMP_NUM_THREADS 1")
 num_core = commands.getoutput("grep 'core id' /proc/cpuinfo | sort -u | wc -l")
-lammps_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root lmp"
-pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
-#lammps_adress = "mpirun -np "+str(num_core)+" lmp"
-#pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
+#lammps_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root lmp"
+#pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
+lammps_adress = "mpirun -np "+str(num_core)+" lmp"
+pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
 #lammps_adress = "mpirun -np 2 lmp"
 #pwscf_adress = "mpirun -np 2 pw.x"
 
