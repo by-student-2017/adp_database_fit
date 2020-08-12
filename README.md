@@ -63,9 +63,7 @@ adp_database_fit
 1. cd ~/adp_database_fit
 2. cp ADP.input_temp ADP.input
 3. sed -i 's/Xx/Cu/g' ADP.input
-4. cp in.lmp_temp_v2 in.lmp_temp
-5. sed -i 's/YYYY/300.0/' in.lmp_temp
-6. python nm_v4_debian.py
+4. python nm_v4_debian.py
 
 
 ## fit parameters by genetic algorithm
@@ -73,9 +71,7 @@ adp_database_fit
 2. pip install -U deap --user
 3. cp ADP.input_temp ADP.input
 4. sed -i 's/Xx/Cu/g' ADP.input
-5. cp in.lmp_temp_v2 in.lmp_temp
-6. sed -i 's/YYYY/300.0/' in.lmp_temp
-7. python ga_v4_debian.py
+5. python ga_v4_debian.py
 
 
 ## fit parameters by baysian method
@@ -83,9 +79,7 @@ adp_database_fit
 2. pip install bayesian-optimization==1.1.0
 3. cp ADP.input_temp ADP.input
 4. sed -i 's/Xx/Cu/g' ADP.input
-5. cp in.lmp_temp_v2 in.lmp_temp
-6. sed -i 's/YYYY/300.0/' in.lmp_temp
-7. python baysian_v4_debian.py
+5. python baysian_v4_debian.py
 
 
 ## plot F, rho or z2r
@@ -153,8 +147,6 @@ adp_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cu/g' ADP.input
-	!cp in.lmp_temp_v2 in.lmp_temp
-	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 nm_v4_gc.py
 
 
@@ -166,8 +158,6 @@ adp_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cu/g' ADP.input
-	!cp in.lmp_temp_v2 in.lmp_temp
-	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 ga_v4_gc.py
 
 
@@ -179,8 +169,6 @@ adp_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cu/g' ADP.input
-	!cp in.lmp_temp_v2 in.lmp_temp
-	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 baysian_v4_gc.py
 
 
