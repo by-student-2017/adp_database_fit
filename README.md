@@ -66,6 +66,31 @@ adp_database_fit
 4. python nm_v4_debian.py
 
 
+## rewrite area
+1. gedit nm_v4_debian.py
+
+
+temp = [77,423,1073]
+
+
+for t in temp:
+
+
+  commands.getoutput("cp in.lmp in.lmp_"+str(t)+"K")
+
+
+  commands.getoutput("sed -i 's/YYYY/"+str(t)+"/' in.lmp_"+str(t)+"K")
+
+
+  commands.getoutput("cp data.in data.in_"+str(t)+"K")
+
+
+# if you would set other structures, e.g.,
+
+
+commands.getoutput("cp ./data/data.in.DC data.in_423K")
+
+
 ## fit parameters by genetic algorithm
 1. cd ~/adp_database_fit
 2. pip install -U deap --user
