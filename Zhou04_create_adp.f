@@ -23,12 +23,12 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   rhoh(16),rhos(16),
      *   urhoe(16),urhos(16),
      *   ui0(16),ui1(16),ui2(16),ui3(16),
-     *   um0(16),um1(16),um2(16),um3(16),um4(16),
+     *   um0(16),um1(16),um21(16),um22(16),um31(16),um32(16),
      *   unn(16),un(16),urhoin(16),urhoout(16),
      *   urhol(16),urhoh(16),
      *   wi0(16),wi1(16),wi2(16),wi3(16),
      *   wrhoe(16),wrhos(16),
-     *   wm0(16),wm1(16),wm2(16),wm3(16),wm4(16),
+     *   wm0(16),wm1(16),wm21(16),wm22(16),wm31(16),wm32(16),
      *   wnn(16),wn(16),wrhoin(16),wrhoout(16),
      *   wrhol(16),wrhoh(16)
       common /pass2/ amass(16),Fr(5000,16),rhor(5000,16),
@@ -89,40 +89,44 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
          rhoout(ntypes)=rhoh(ntypes)*rhoe(ntypes)
 c u function
          read(10,*) urhoe(ntypes)
-         read(10,*) urhos(ntypes)
+c         read(10,*) urhos(ntypes)
          read(10,*) ui0(ntypes)
          read(10,*) ui1(ntypes)
          read(10,*) ui2(ntypes)
          read(10,*) ui3(ntypes)
          read(10,*) um0(ntypes)
          read(10,*) um1(ntypes)
-         read(10,*) um2(ntypes)
-         read(10,*) um3(ntypes)
-         read(10,*) um4(ntypes)
+         read(10,*) um21(ntypes)
+         read(10,*) um22(ntypes)
+         read(10,*) um31(ntypes)
+         read(10,*) um32(ntypes)
          read(10,*) unn(ntypes)
          read(10,*) un(ntypes)
          read(10,*) urhol(ntypes)
          read(10,*) urhoh(ntypes)
          urhoin(ntypes)=urhol(ntypes)*urhoe(ntypes)
          urhoout(ntypes)=urhoh(ntypes)*urhoe(ntypes)
+         urhos(ntypes)=urhoout(ntypes)
 c w function
          read(10,*) wrhoe(ntypes)
-         read(10,*) wrhos(ntypes)
+c         read(10,*) wrhos(ntypes)
          read(10,*) wi0(ntypes)
          read(10,*) wi1(ntypes)
          read(10,*) wi2(ntypes)
          read(10,*) wi3(ntypes)
          read(10,*) wm0(ntypes)
          read(10,*) wm1(ntypes)
-         read(10,*) wm2(ntypes)
-         read(10,*) wm3(ntypes)
-         read(10,*) wm4(ntypes)
+         read(10,*) wm21(ntypes)
+         read(10,*) wm22(ntypes)
+         read(10,*) wm31(ntypes)
+         read(10,*) wm32(ntypes)
          read(10,*) wnn(ntypes)
          read(10,*) wn(ntypes)
          read(10,*) wrhol(ntypes)
          read(10,*) wrhoh(ntypes)
          wrhoin(ntypes)=wrhol(ntypes)*wrhoe(ntypes)
          wrhoout(ntypes)=wrhoh(ntypes)*wrhoe(ntypes)
+         wrhos(ntypes)=wrhoout(ntypes)
 c
       else
          do 1 i=1,27
@@ -157,6 +161,7 @@ c
             rhor(i,i1)=fvalue
             call pair(i1,i2,r,psi)
             z2r(i,i1,i2)=r*psi
+c            r=(i-1)*dr
             call uembed(i1,r,emb)
             u(i,i1,i2)=emb
             call wembed(i1,r,emb)
@@ -169,6 +174,7 @@ c
             call pair(i1,i2,r,psi)
             z2r(i,i1,i2)=r*psi
             z2r(i,i2,i1)=z2r(i,i1,i2)
+c            r=(i-1)*dr
             call prof(i1,r,f1)
             call prof(i2,r,f2)
             u(i,i1,i2)=0.5d0*(f2/f1*u(i,i1,1)+f1/f2*u(i,i2,1))
@@ -244,12 +250,12 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   rhoh(16),rhos(16),
      *   urhoe(16),urhos(16),
      *   ui0(16),ui1(16),ui2(16),ui3(16),
-     *   um0(16),um1(16),um2(16),um3(16),um4(16),
+     *   um0(16),um1(16),um21(16),um22(16),um31(16),um32(16),
      *   unn(16),un(16),urhoin(16),urhoout(16),
      *   urhol(16),urhoh(16),
      *   wi0(16),wi1(16),wi2(16),wi3(16),
      *   wrhoe(16),wrhos(16),
-     *   wm0(16),wm1(16),wm2(16),wm3(16),wm4(16),
+     *   wm0(16),wm1(16),wm21(16),wm22(16),wm31(16),wm32(16),
      *   wnn(16),wn(16),wrhoin(16),wrhoout(16),
      *   wrhol(16),wrhoh(16)
       f=fe(it)*exp(-beta1(it)*(r/re(it)-1.0d0))
@@ -270,12 +276,12 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   rhoh(16),rhos(16),
      *   urhoe(16),urhos(16),
      *   ui0(16),ui1(16),ui2(16),ui3(16),
-     *   um0(16),um1(16),um2(16),um3(16),um4(16),
+     *   um0(16),um1(16),um21(16),um22(16),um31(16),um32(16),
      *   unn(16),un(16),urhoin(16),urhoout(16),
      *   urhol(16),urhoh(16),
      *   wi0(16),wi1(16),wi2(16),wi3(16),
      *   wrhoe(16),wrhos(16),
-     *   wm0(16),wm1(16),wm2(16),wm3(16),wm4(16),
+     *   wm0(16),wm1(16),wm21(16),wm22(16),wm31(16),wm32(16),
      *   wnn(16),wn(16),wrhoin(16),wrhoout(16),
      *   wrhol(16),wrhoh(16)
       if (it1 .eq. it2) then
@@ -315,12 +321,12 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   rhoh(16),rhos(16),
      *   urhoe(16),urhos(16),
      *   ui0(16),ui1(16),ui2(16),ui3(16),
-     *   um0(16),um1(16),um2(16),um3(16),um4(16),
+     *   um0(16),um1(16),um21(16),um22(16),um31(16),um32(16),
      *   unn(16),un(16),urhoin(16),urhoout(16),
      *   urhol(16),urhoh(16),
      *   i0(16),wi1(16),wi2(16),wi3(16),
      *   wrhoe(16),wrhos(16),
-     *   wm0(16),wm1(16),wm2(16),wm3(16),wm4(16),
+     *   wm0(16),wm1(16),wm21(16),wm22(16),wm31(16),wm32(16),
      *   wnn(16),wn(16),wrhoin(16),wrhoout(16),
      *   wrhol(16),wrhoh(16)
       if (rho .lt. rhoe(it)) then
@@ -339,7 +345,7 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
          emb=Fm0(it)+
      *       Fm1(it)*(rho/rhoe(it)-1.0d0)+
      *       Fm2(it)*(rho/rhoe(it)-1.0d0)**2+
-     *       Fm33*(rho/rhoe(it)-1.0d0)**3
+     *          Fm33*(rho/rhoe(it)-1.0d0)**3
       else
          emb=Fn(it)*(1.0d0-fnn(it)*log(rho/rhos(it)))*
      *       (rho/rhos(it))**fnn(it)
@@ -360,18 +366,20 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   rhoh(16),rhos(16),
      *   urhoe(16),urhos(16),
      *   ui0(16),ui1(16),ui2(16),ui3(16),
-     *   um0(16),um1(16),um2(16),um3(16),um4(16),
+     *   um0(16),um1(16),um21(16),um22(16),um31(16),um32(16),
      *   unn(16),un(16),urhoin(16),urhoout(16),
      *   urhol(16),urhoh(16),
      *   wi0(16),wi1(16),wi2(16),wi3(16),
      *   wrhoe(16),wrhos(16),
-     *   wm0(16),wm1(16),wm2(16),wm3(16),wm4(16),
+     *   wm0(16),wm1(16),wm21(16),wm22(16),wm31(16),wm32(16),
      *   wnn(16),wn(16),wrhoin(16),wrhoout(16),
      *   wrhol(16),wrhoh(16)
       if (r .lt. urhoe(it)) then
-         um33=um3(it)
+         um2=um21(it)
+         um3=um31(it)
       else 
-         um33=um4(it)
+         um2=um22(it)
+         um3=um32(it)
       endif
       if (r .lt. urhoin(it)) then
          emb=ui0(it)+
@@ -381,8 +389,8 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       else if (r .lt. urhoout(it)) then
          emb=um0(it)+
      *       um1(it)*(r/urhoe(it)-1.0d0)+
-     *       um2(it)*(r/urhoe(it)-1.0d0)**2+
-     *          um33*(r/urhoe(it)-1.0d0)**3
+     *           um2*(r/urhoe(it)-1.0d0)**2+
+     *           um3*(r/urhoe(it)-1.0d0)**3
       else
          emb=un(it)*(1.0d0-unn(it)*log(r/urhos(it)))/
      *       (r/urhos(it))**unn(it)
@@ -403,18 +411,20 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   rhoh(16),rhos(16),
      *   urhoe(16),urhos(16),
      *   ui0(16),ui1(16),ui2(16),ui3(16),
-     *   um0(16),um1(16),um2(16),um3(16),um4(16),
+     *   um0(16),um1(16),um21(16),um22(16),um31(16),um32(16),
      *   unn(16),un(16),urhoin(16),urhoout(16),
      *   urhol(16),urhoh(16),
      *   wi0(16),wi1(16),wi2(16),wi3(16),
      *   wrhoe(16),wrhos(16),
-     *   wm0(16),wm1(16),wm2(16),wm3(16),wm4(16),
+     *   wm0(16),wm1(16),wm21(16),wm22(16),wm31(16),wm32(16),
      *   wnn(16),wn(16),wrhoin(16),wrhoout(16),
      *   wrhol(16),wrhoh(16)
       if (r .lt. wrhoe(it)) then
-         wm33=wm3(it)
+         wm2=wm21(it)
+         wm3=wm31(it)
       else 
-         wm33=wm4(it)
+         wm2=wm22(it)
+         wm3=wm32(it)
       endif
       if (r .lt. wrhoin(it)) then
          emb=wi0(it)+
@@ -424,8 +434,8 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       else if (r .lt. wrhoout(it)) then
          emb=wm0(it)+
      *       wm1(it)*(r/wrhoe(it)-1.0d0)+
-     *       wm2(it)*(r/wrhoe(it)-1.0d0)**2+
-     *          wm33*(r/wrhoe(it)-1.0d0)**3
+     *           wm2*(r/wrhoe(it)-1.0d0)**2+
+     *           wm3*(r/wrhoe(it)-1.0d0)**3
       else
          emb=wn(it)*(1.0d0-wnn(it)*log(r/wrhos(it)))/
      *       (r/wrhos(it))**wnn(it)
@@ -447,12 +457,12 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   rhoh(16),rhos(16),
      *   urhoe(16),urhos(16),
      *   ui0(16),ui1(16),ui2(16),ui3(16),
-     *   um0(16),um1(16),um2(16),um3(16),um4(16),
+     *   um0(16),um1(16),um21(16),um22(16),um31(16),um32(16),
      *   unn(16),un(16),urhoin(16),urhoout(16),
      *   urhol(16),urhoh(16),
      *   wi0(16),wi1(16),wi2(16),wi3(16),
      *   wrhoe(16),wrhos(16),
-     *   wm0(16),wm1(16),wm2(16),wm3(16),wm4(16),
+     *   wm0(16),wm1(16),wm21(16),wm22(16),wm31(16),wm32(16),
      *   wnn(16),wn(16),wrhoin(16),wrhoout(16),
      *   wrhol(16),wrhoh(16)
       common /pass2/ amass(16),Fr(5000,16),rhor(5000,16),
