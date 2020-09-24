@@ -6,16 +6,17 @@ import commands
 import sys
 #----------------------------------------------------------------------
 file_tmp = 'ADP_code.tmp'
+file_tmp_uw = 'ADP_code_uw.tmp'
 file_inp = 'ADP_code'
 
 cif2cell_adress = "cif2cell"
 
 commands.getoutput("setenv OMP_NUM_THREADS 1")
 num_core = commands.getoutput("grep 'core id' /proc/cpuinfo | sort -u | wc -l")
-lammps_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root lmp"
-pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
-#lammps_adress = "mpirun -np "+str(num_core)+" lmp"
-#pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
+#lammps_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root lmp"
+#pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
+lammps_adress = "mpirun -np "+str(num_core)+" lmp"
+pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
 #lammps_adress = "mpirun -np 2 lmp"
 #pwscf_adress = "mpirun -np 2 pw.x"
 
@@ -122,10 +123,36 @@ x48 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+54){print $1}}' ADP_
 x49 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+55){print $1}}' ADP_code.init | head -1"))
 x50 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+56){print $1}}' ADP_code.init | head -1"))
 x51 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+57){print $1}}' ADP_code.init | head -1"))
-x = [x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,
-      x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,
+
+fi0 = open(file_tmp,'r')
+text0 = fi0.read().replace('re',str(x0).replace("[","").replace("]",""))
+text0 = text0.replace('fe',str(x1).replace("[","").replace("]",""))
+text0 = text0.replace('Frhoe1',str(x2).replace("[","").replace("]",""))
+text0 = text0.replace('Frhoe2',str(x3).replace("[","").replace("]",""))
+text0 = text0.replace('alpha',str(x4).replace("[","").replace("]",""))
+text0 = text0.replace('beta',str(x5).replace("[","").replace("]",""))
+text0 = text0.replace('Ap',str(x6).replace("[","").replace("]",""))
+text0 = text0.replace('Bp',str(x7).replace("[","").replace("]",""))
+text0 = text0.replace('kappa',str(x8).replace("[","").replace("]",""))
+text0 = text0.replace('lambda',str(x9).replace("[","").replace("]",""))
+text0 = text0.replace('Fn0',str(x10).replace("[","").replace("]",""))
+text0 = text0.replace('Fn1',str(x11).replace("[","").replace("]",""))
+text0 = text0.replace('Fn2',str(x12).replace("[","").replace("]",""))
+text0 = text0.replace('Fn3',str(x13).replace("[","").replace("]",""))
+text0 = text0.replace('F0',str(x14).replace("[","").replace("]",""))
+text0 = text0.replace('F1',str(x15).replace("[","").replace("]",""))
+text0 = text0.replace('F2',str(x16).replace("[","").replace("]",""))
+text0 = text0.replace('F3',str(x17).replace("[","").replace("]",""))
+text0 = text0.replace('Feta',str(x18).replace("[","").replace("]",""))
+text0 = text0.replace('Fep',str(x19).replace("[","").replace("]",""))
+text0 = text0.replace('F4',str(x20).replace("[","").replace("]",""))
+text0 = text0.replace('Frhol',str(x21).replace("[","").replace("]",""))
+with open(file_tmp_uw,'w') as f:
+  print >> f, text0
+
+z = [x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,
       x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51]
-print "initial parameters: ",x
+print "initial parameters: ",z
 
 count = 0
 #----------------------------------------------------------------------
@@ -134,14 +161,14 @@ creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
-n_gene = 52 # number of parameters
+n_gene = 30 # number of parameters
 min_ind = numpy.ones(n_gene) * -1.0
 max_ind = numpy.ones(n_gene) *  1.0
 for i in range(n_gene):
   #min_ind[i] = b1[i][0]
   #max_ind[i] = b1[i][1]
-  min_ind[i] = float(x[i]) - float(x[i])*0.1
-  max_ind[i] = float(x[i]) + float(x[i])*0.1
+  min_ind[i] = float(z[i]) - float(z[i])*0.1
+  max_ind[i] = float(z[i]) + float(z[i])*0.1
   print "search area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
 #----------------------------------------------------------------------
 def create_ind_uniform(min_ind, max_ind):
@@ -164,61 +191,39 @@ def evalOneMax(individual):
   count += 1
   print count
 
-  fi = open(file_tmp,'r')
-  text = fi.read().replace('re',str(individual[0]).replace("[","").replace("]",""))
-  text = text.replace('fe',str(individual[1]).replace("[","").replace("]",""))
-  text = text.replace('Frhoe1',str(individual[2]).replace("[","").replace("]",""))
-  text = text.replace('Frhoe2',str(individual[3]).replace("[","").replace("]",""))
-  text = text.replace('alpha',str(individual[4]).replace("[","").replace("]",""))
-  text = text.replace('beta',str(individual[5]).replace("[","").replace("]",""))
-  text = text.replace('Ap',str(individual[6]).replace("[","").replace("]",""))
-  text = text.replace('Bp',str(individual[7]).replace("[","").replace("]",""))
-  text = text.replace('kappa',str(individual[8]).replace("[","").replace("]",""))
-  text = text.replace('lambda',str(individual[9]).replace("[","").replace("]",""))
-  text = text.replace('Fn0',str(individual[10]).replace("[","").replace("]",""))
-  text = text.replace('Fn1',str(individual[11]).replace("[","").replace("]",""))
-  text = text.replace('Fn2',str(individual[12]).replace("[","").replace("]",""))
-  text = text.replace('Fn3',str(individual[13]).replace("[","").replace("]",""))
-  text = text.replace('F0',str(individual[14]).replace("[","").replace("]",""))
-  text = text.replace('F1',str(individual[15]).replace("[","").replace("]",""))
-  text = text.replace('F2',str(individual[16]).replace("[","").replace("]",""))
-  text = text.replace('F3',str(individual[17]).replace("[","").replace("]",""))
-  text = text.replace('Feta',str(individual[18]).replace("[","").replace("]",""))
-  text = text.replace('Fep',str(individual[19]).replace("[","").replace("]",""))
-  text = text.replace('F4',str(individual[20]).replace("[","").replace("]",""))
-  text = text.replace('Frhol',str(individual[21]).replace("[","").replace("]",""))
+  fi = open(file_tmp_uw,'r')
   # u
-  text = text.replace('urhoe',str(individual[22]).replace("[","").replace("]",""))
-  text = text.replace('un0',str(individual[23]).replace("[","").replace("]",""))
-  text = text.replace('un1',str(individual[24]).replace("[","").replace("]",""))
-  text = text.replace('un2',str(individual[25]).replace("[","").replace("]",""))
-  text = text.replace('un3',str(individual[26]).replace("[","").replace("]",""))
-  text = text.replace('u0',str(individual[27]).replace("[","").replace("]",""))
-  text = text.replace('u1',str(individual[28]).replace("[","").replace("]",""))
-  text = text.replace('u21',str(individual[29]).replace("[","").replace("]",""))
-  text = text.replace('u22',str(individual[30]).replace("[","").replace("]",""))
-  text = text.replace('u31',str(individual[31]).replace("[","").replace("]",""))
-  text = text.replace('u32',str(individual[32]).replace("[","").replace("]",""))
-  text = text.replace('ueta',str(individual[33]).replace("[","").replace("]",""))
-  text = text.replace('uep',str(individual[34]).replace("[","").replace("]",""))
-  text = text.replace('urhol',str(individual[35]).replace("[","").replace("]",""))
-  text = text.replace('urhoh',str(individual[36]).replace("[","").replace("]",""))
+  text = fi.read().replace('urhoe',str(individual[0]).replace("[","").replace("]",""))
+  text = text.replace('un0',str(individual[1]).replace("[","").replace("]",""))
+  text = text.replace('un1',str(individual[2]).replace("[","").replace("]",""))
+  text = text.replace('un2',str(individual[3]).replace("[","").replace("]",""))
+  text = text.replace('un3',str(individual[4]).replace("[","").replace("]",""))
+  text = text.replace('u0',str(individual[5]).replace("[","").replace("]",""))
+  text = text.replace('u1',str(individual[6]).replace("[","").replace("]",""))
+  text = text.replace('u21',str(individual[7]).replace("[","").replace("]",""))
+  text = text.replace('u22',str(individual[8]).replace("[","").replace("]",""))
+  text = text.replace('u31',str(individual[9]).replace("[","").replace("]",""))
+  text = text.replace('u32',str(individual[10]).replace("[","").replace("]",""))
+  text = text.replace('ueta',str(individual[11]).replace("[","").replace("]",""))
+  text = text.replace('uep',str(individual[12]).replace("[","").replace("]",""))
+  text = text.replace('urhol',str(individual[13]).replace("[","").replace("]",""))
+  text = text.replace('urhoh',str(individual[14]).replace("[","").replace("]",""))
   # w
-  text = text.replace('wrhoe',str(individual[37]).replace("[","").replace("]",""))
-  text = text.replace('wn0',str(individual[38]).replace("[","").replace("]",""))
-  text = text.replace('wn1',str(individual[39]).replace("[","").replace("]",""))
-  text = text.replace('wn2',str(individual[40]).replace("[","").replace("]",""))
-  text = text.replace('wn3',str(individual[41]).replace("[","").replace("]",""))
-  text = text.replace('w0',str(individual[42]).replace("[","").replace("]",""))
-  text = text.replace('w1',str(individual[43]).replace("[","").replace("]",""))
-  text = text.replace('w21',str(individual[44]).replace("[","").replace("]",""))
-  text = text.replace('w22',str(individual[45]).replace("[","").replace("]",""))
-  text = text.replace('w31',str(individual[46]).replace("[","").replace("]",""))
-  text = text.replace('w32',str(individual[47]).replace("[","").replace("]",""))
-  text = text.replace('weta',str(individual[48]).replace("[","").replace("]",""))
-  text = text.replace('wep',str(individual[49]).replace("[","").replace("]",""))
-  text = text.replace('wrhol',str(individual[50]).replace("[","").replace("]",""))
-  text = text.replace('wrhoh',str(individual[51]).replace("[","").replace("]",""))
+  text = text.replace('wrhoe',str(individual[15]).replace("[","").replace("]",""))
+  text = text.replace('wn0',str(individual[16]).replace("[","").replace("]",""))
+  text = text.replace('wn1',str(individual[17]).replace("[","").replace("]",""))
+  text = text.replace('wn2',str(individual[18]).replace("[","").replace("]",""))
+  text = text.replace('wn3',str(individual[19]).replace("[","").replace("]",""))
+  text = text.replace('w0',str(individual[20]).replace("[","").replace("]",""))
+  text = text.replace('w1',str(individual[21]).replace("[","").replace("]",""))
+  text = text.replace('w21',str(individual[22]).replace("[","").replace("]",""))
+  text = text.replace('w22',str(individual[23]).replace("[","").replace("]",""))
+  text = text.replace('w31',str(individual[24]).replace("[","").replace("]",""))
+  text = text.replace('w32',str(individual[25]).replace("[","").replace("]",""))
+  text = text.replace('weta',str(individual[26]).replace("[","").replace("]",""))
+  text = text.replace('wep',str(individual[27]).replace("[","").replace("]",""))
+  text = text.replace('wrhol',str(individual[28]).replace("[","").replace("]",""))
+  text = text.replace('wrhoh',str(individual[29]).replace("[","").replace("]",""))
   fi.close
 
   with open(file_inp,'w') as f:
@@ -336,7 +341,7 @@ def evalOneMax(individual):
 
   print "Evaluate: ", y
   #print "Parameters: ", individual
-  print "Parameters: x0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+","+str(individual[30])+","+str(individual[31])+","+str(individual[32])+","+str(individual[33])+","+str(individual[34])+","+str(individual[35])+","+str(individual[36])+","+str(individual[37])+","+str(individual[38])+","+str(individual[39])+","+str(individual[40])+","+str(individual[41])+","+str(individual[42])+","+str(individual[43])+","+str(individual[44])+","+str(individual[45])+","+str(individual[46])+","+str(individual[47])+","+str(individual[48])+","+str(individual[49])+","+str(individual[50])+","+str(individual[51])+" ]"
+  print "Parameters: z = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+" ]"
   print "------------------------"
 
   return y
