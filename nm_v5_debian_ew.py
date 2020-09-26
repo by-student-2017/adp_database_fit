@@ -4,10 +4,15 @@ import numpy as np
 import commands
 import sys
 
-print "fit u and w, only"
+print "Attention"
+print "this code need Zhou04_ADP_EW"
+print "  In the first time, need to command 'gfortran Zhou04_create_adp_ew.f -o Zhou04_ADP_EW'"
+print "this code do not recommend element < Al"
+print "all u parameters = 0.0"
+print " "
 #----------------------------------------------------------------------
 file_tmp = 'ADP_code.tmp'
-file_tmp_uw = 'ADP_code_uw.tmp'
+file_tmp_ew = 'ADP_code_ew.tmp'
 file_inp = 'ADP_code'
 
 cif2cell_adress = "cif2cell"
@@ -126,33 +131,27 @@ x49 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+55){print $1}}' ADP_
 x50 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+56){print $1}}' ADP_code.init | head -1"))
 x51 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+57){print $1}}' ADP_code.init | head -1"))
 
+# u
 fi0 = open(file_tmp,'r')
-text0 = fi0.read().replace('re',str(x0).replace("[","").replace("]",""))
-text0 = text0.replace('fe',str(x1).replace("[","").replace("]",""))
-text0 = text0.replace('Frhoe1',str(x2).replace("[","").replace("]",""))
-text0 = text0.replace('Frhoe2',str(x3).replace("[","").replace("]",""))
-text0 = text0.replace('alpha',str(x4).replace("[","").replace("]",""))
-text0 = text0.replace('beta',str(x5).replace("[","").replace("]",""))
-text0 = text0.replace('Ap',str(x6).replace("[","").replace("]",""))
-text0 = text0.replace('Bp',str(x7).replace("[","").replace("]",""))
-text0 = text0.replace('kappa',str(x8).replace("[","").replace("]",""))
-text0 = text0.replace('lambda',str(x9).replace("[","").replace("]",""))
-text0 = text0.replace('Fn0',str(x10).replace("[","").replace("]",""))
-text0 = text0.replace('Fn1',str(x11).replace("[","").replace("]",""))
-text0 = text0.replace('Fn2',str(x12).replace("[","").replace("]",""))
-text0 = text0.replace('Fn3',str(x13).replace("[","").replace("]",""))
-text0 = text0.replace('F0',str(x14).replace("[","").replace("]",""))
-text0 = text0.replace('F1',str(x15).replace("[","").replace("]",""))
-text0 = text0.replace('F2',str(x16).replace("[","").replace("]",""))
-text0 = text0.replace('F3',str(x17).replace("[","").replace("]",""))
-text0 = text0.replace('Feta',str(x18).replace("[","").replace("]",""))
-text0 = text0.replace('Fep',str(x19).replace("[","").replace("]",""))
-text0 = text0.replace('F4',str(x20).replace("[","").replace("]",""))
-text0 = text0.replace('Frhol',str(x21).replace("[","").replace("]",""))
-with open(file_tmp_uw,'w') as f:
+text0 = fi0.read().replace('urhoe',str(x22).replace("[","").replace("]",""))
+text0 = text0.replace('un0',str(x23).replace("[","").replace("]",""))
+text0 = text0.replace('un1',str(x24).replace("[","").replace("]",""))
+text0 = text0.replace('un2',str(x25).replace("[","").replace("]",""))
+text0 = text0.replace('un3',str(x26).replace("[","").replace("]",""))
+text0 = text0.replace('u0',str(x27).replace("[","").replace("]",""))
+text0 = text0.replace('u1',str(x28).replace("[","").replace("]",""))
+text0 = text0.replace('u21',str(x29).replace("[","").replace("]",""))
+text0 = text0.replace('u22',str(x30).replace("[","").replace("]",""))
+text0 = text0.replace('u31',str(x31).replace("[","").replace("]",""))
+text0 = text0.replace('u32',str(x32).replace("[","").replace("]",""))
+text0 = text0.replace('ueta',str(x33).replace("[","").replace("]",""))
+text0 = text0.replace('uep',str(x34).replace("[","").replace("]",""))
+text0 = text0.replace('urhol',str(x35).replace("[","").replace("]",""))
+text0 = text0.replace('urhoh',str(x36).replace("[","").replace("]",""))
+with open(file_tmp_ew,'w') as f:
   print >> f, text0
 
-z0 = [x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,
+z0 = [x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,
       x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51]
 print "initial parameters: ",z0
 
@@ -165,45 +164,52 @@ def f(z):
   count += 1
   print count
 
-  fi = open(file_tmp_uw,'r')
-  # u
-  text = fi.read().replace('urhoe',str(z[0]).replace("[","").replace("]",""))
-  text = text.replace('un0',str(z[1]).replace("[","").replace("]",""))
-  text = text.replace('un1',str(z[2]).replace("[","").replace("]",""))
-  text = text.replace('un2',str(z[3]).replace("[","").replace("]",""))
-  text = text.replace('un3',str(z[4]).replace("[","").replace("]",""))
-  text = text.replace('u0',str(z[5]).replace("[","").replace("]",""))
-  text = text.replace('u1',str(z[6]).replace("[","").replace("]",""))
-  text = text.replace('u21',str(z[7]).replace("[","").replace("]",""))
-  text = text.replace('u22',str(z[8]).replace("[","").replace("]",""))
-  text = text.replace('u31',str(z[9]).replace("[","").replace("]",""))
-  text = text.replace('u32',str(z[10]).replace("[","").replace("]",""))
-  text = text.replace('ueta',str(z[11]).replace("[","").replace("]",""))
-  text = text.replace('uep',str(z[12]).replace("[","").replace("]",""))
-  text = text.replace('urhol',str(z[13]).replace("[","").replace("]",""))
-  text = text.replace('urhoh',str(z[14]).replace("[","").replace("]",""))
+  fi = open(file_tmp_ew,'r')
+  text = fi.read().replace('re',str(z[0]).replace("[","").replace("]",""))
+  text = text.replace('fe',str(z[1]).replace("[","").replace("]",""))
+  text = text.replace('Frhoe1',str(z[2]).replace("[","").replace("]",""))
+  text = text.replace('Frhoe2',str(z[3]).replace("[","").replace("]",""))
+  text = text.replace('alpha',str(z[4]).replace("[","").replace("]",""))
+  text = text.replace('beta',str(z[5]).replace("[","").replace("]",""))
+  text = text.replace('Ap',str(z[6]).replace("[","").replace("]",""))
+  text = text.replace('Bp',str(z[7]).replace("[","").replace("]",""))
+  text = text.replace('kappa',str(z[8]).replace("[","").replace("]",""))
+  text = text.replace('lambda',str(z[9]).replace("[","").replace("]",""))
+  text = text.replace('Fn0',str(z[10]).replace("[","").replace("]",""))
+  text = text.replace('Fn1',str(z[11]).replace("[","").replace("]",""))
+  text = text.replace('Fn2',str(z[12]).replace("[","").replace("]",""))
+  text = text.replace('Fn3',str(z[13]).replace("[","").replace("]",""))
+  text = text.replace('F0',str(z[14]).replace("[","").replace("]",""))
+  text = text.replace('F1',str(z[15]).replace("[","").replace("]",""))
+  text = text.replace('F2',str(z[16]).replace("[","").replace("]",""))
+  text = text.replace('F3',str(z[17]).replace("[","").replace("]",""))
+  text = text.replace('Feta',str(z[18]).replace("[","").replace("]",""))
+  text = text.replace('Fep',str(z[19]).replace("[","").replace("]",""))
+  text = text.replace('F4',str(z[20]).replace("[","").replace("]",""))
+  text = text.replace('Frhol',str(z[21]).replace("[","").replace("]",""))
   # w
-  text = text.replace('wrhoe',str(z[15]).replace("[","").replace("]",""))
-  text = text.replace('wn0',str(z[16]).replace("[","").replace("]",""))
-  text = text.replace('wn1',str(z[17]).replace("[","").replace("]",""))
-  text = text.replace('wn2',str(z[18]).replace("[","").replace("]",""))
-  text = text.replace('wn3',str(z[19]).replace("[","").replace("]",""))
-  text = text.replace('w0',str(z[20]).replace("[","").replace("]",""))
-  text = text.replace('w1',str(z[21]).replace("[","").replace("]",""))
-  text = text.replace('w21',str(z[22]).replace("[","").replace("]",""))
-  text = text.replace('w22',str(z[23]).replace("[","").replace("]",""))
-  text = text.replace('w31',str(z[24]).replace("[","").replace("]",""))
-  text = text.replace('w32',str(z[25]).replace("[","").replace("]",""))
-  text = text.replace('weta',str(z[26]).replace("[","").replace("]",""))
-  text = text.replace('wep',str(z[27]).replace("[","").replace("]",""))
-  text = text.replace('wrhol',str(z[28]).replace("[","").replace("]",""))
-  text = text.replace('wrhoh',str(z[29]).replace("[","").replace("]",""))
+  text = text.replace('wrhoe',str(z[22]).replace("[","").replace("]",""))
+  text = text.replace('wn0',str(z[23]).replace("[","").replace("]",""))
+  text = text.replace('wn1',str(z[24]).replace("[","").replace("]",""))
+  text = text.replace('wn2',str(z[25]).replace("[","").replace("]",""))
+  text = text.replace('wn3',str(z[26]).replace("[","").replace("]",""))
+  text = text.replace('w0',str(z[27]).replace("[","").replace("]",""))
+  text = text.replace('w1',str(z[28]).replace("[","").replace("]",""))
+  text = text.replace('w21',str(z[29]).replace("[","").replace("]",""))
+  text = text.replace('w22',str(z[30]).replace("[","").replace("]",""))
+  text = text.replace('w31',str(z[31]).replace("[","").replace("]",""))
+  text = text.replace('w32',str(z[32]).replace("[","").replace("]",""))
+  text = text.replace('weta',str(z[33]).replace("[","").replace("]",""))
+  text = text.replace('wep',str(z[34]).replace("[","").replace("]",""))
+  text = text.replace('wrhol',str(z[35]).replace("[","").replace("]",""))
+  text = text.replace('wrhoh',str(z[36]).replace("[","").replace("]",""))
   fi.close
 
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./Zhou04_ADP_1 < ADP.input")
+  #commands.getoutput("./Zhou04_ADP_1 < ADP.input")
+  commands.getoutput("./Zhou04_ADP_EW < ADP.input")
 
   tdiffea = 0.0
   tdiffp  = 0.0
@@ -301,7 +307,7 @@ def f(z):
 
     for itw in range(ntemp+1):
       if t == temp[itw]:
-        wt = weig[i]
+        wt = weig[itw]
 
     tdiffea = tdiffea + float(diffea)*float(wt)
     tdiffp  = tdiffp  + float(diffp)*float(wt)
@@ -315,9 +321,14 @@ def f(z):
 
 
   print "Evaluate: ", y
-  print "Parameters: z0 = "+"[ "+str(z[0])+","+str(z[1])+","+str(z[2])+","+str(z[3])+","+str(z[4])+","+str(z[5])+","+str(z[6])+","+str(z[7])+","+str(z[8])+","+str(z[9])+","+str(z[10])+","+str(z[11])+","+str(z[12])+","+str(z[13])+","+str(z[14])+","+str(z[15])+","+str(z[16])+","+str(z[17])+","+str(z[18])+","+str(z[19])+","+str(z[20])+","+str(z[21])+","+str(z[22])+","+str(z[23])+","+str(z[24])+","+str(z[25])+","+str(z[26])+","+str(z[27])+","+str(z[28])+","+str(z[29])+" ]"
+  #print "Parameters: ", x
+  print "Parameters: z0 = "+"[ "+str(x[0])+","+str(x[1])+","+str(x[2])+","+str(x[3])+","+str(x[4])+","+str(x[5])+","+str(x[6])+","+str(x[7])+","+str(x[8])+","+str(x[9])+","+str(x[10])+","+str(x[11])+","+str(x[12])+","+str(x[13])+","+str(x[14])+","+str(x[15])+","+str(x[16])+","+str(x[17])+","+str(x[18])+","+str(x[19])+","+str(x[20])+","+str(x[21])+","+str(x[22])+","+str(x[23])+","+str(x[24])+","+str(x[25])+","+str(x[26])+","+str(x[27])+","+str(x[28])+","+str(x[29])+","+str(x[30])+","+str(x[31])+","+str(x[32])+","+str(x[33])+","+str(x[34])+","+str(x[35])+","+str(x[36])+" ]"
   print "------------------------"
 
   return y
 #----------------------------------------------------------------------
 res = optimize.minimize(f,z0,method='Nelder-Mead',options={'adaptive':True})
+#res = optimize.minimize(f,x0,method='Nelder-Mead')
+#res = optimize.minimize(f,x0,method='TNC')
+#res = optimize.minimize(f,x0,method='Powell')
+#res = optimize.minimize(f,x0,method='BFGS')
