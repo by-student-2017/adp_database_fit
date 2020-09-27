@@ -322,7 +322,7 @@ def f(z):
 
   print "Evaluate: ", y
   #print "Parameters: ", x
-  print "Parameters: z0 = "+"[ "+str(x[0])+","+str(x[1])+","+str(x[2])+","+str(x[3])+","+str(x[4])+","+str(x[5])+","+str(x[6])+","+str(x[7])+","+str(x[8])+","+str(x[9])+","+str(x[10])+","+str(x[11])+","+str(x[12])+","+str(x[13])+","+str(x[14])+","+str(x[15])+","+str(x[16])+","+str(x[17])+","+str(x[18])+","+str(x[19])+","+str(x[20])+","+str(x[21])+","+str(x[22])+","+str(x[23])+","+str(x[24])+","+str(x[25])+","+str(x[26])+","+str(x[27])+","+str(x[28])+","+str(x[29])+","+str(x[30])+","+str(x[31])+","+str(x[32])+","+str(x[33])+","+str(x[34])+","+str(x[35])+","+str(x[36])+" ]"
+  print "Parameters: z0 = "+"[ "+str(z[0])+","+str(z[1])+","+str(z[2])+","+str(z[3])+","+str(z[4])+","+str(z[5])+","+str(z[6])+","+str(z[7])+","+str(z[8])+","+str(z[9])+","+str(z[10])+","+str(z[11])+","+str(z[12])+","+str(z[13])+","+str(z[14])+","+str(z[15])+","+str(z[16])+","+str(z[17])+","+str(z[18])+","+str(z[19])+","+str(z[20])+","+str(z[21])+","+str(z[22])+","+str(z[23])+","+str(z[24])+","+str(z[25])+","+str(z[26])+","+str(z[27])+","+str(z[28])+","+str(z[29])+","+str(z[30])+","+str(z[31])+","+str(z[32])+","+str(z[33])+","+str(z[34])+","+str(z[35])+","+str(z[36])+" ]"
   print "------------------------"
 
   return y
