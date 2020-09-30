@@ -197,7 +197,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!python2 baysian_v4_gc.py
 
 
-## plot F, rho or z2r
+## plot F, rho, rphi u, and w.
 	!gnuplot png_adp.gp
 
 
