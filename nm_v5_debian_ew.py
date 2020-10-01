@@ -7,7 +7,7 @@ import sys
 print "Attention"
 print "this code need Zhou04_ADP_EW"
 print "  In the first time, need to command 'gfortran Zhou04_create_adp_ew.f -o Zhou04_ADP_EW'"
-print "this code do not recommend element < Al"
+print "this code does not recommend element < Al"
 print "all u parameters = 0.0"
 print " "
 #----------------------------------------------------------------------
