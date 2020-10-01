@@ -164,6 +164,7 @@ c
 c            r=(i-1)*dr
             call uembed(i1,r,emb)
             u(i,i1,i2)=emb
+            u(i,i1,i2)=0.0d0
             call wembed(i1,r,emb)
             w(i,i1,i2)=emb
 4        continue
@@ -495,11 +496,11 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
         do 13 i2=1,i1
           write(1,12)(z2r(i,i1,i2),i=1,nr)
 13    continue
-      do 311 i=1,nr
-        do 311 i1=1,ntypes
-          do 311 i2=1,i1
-            u(i,i1,i2) = 0.0d0
-311   continue
+c      do 311 i=1,nr
+c        do 311 i1=1,ntypes
+c          do 311 i2=1,i1
+c            u(i,i1,i2) = 0.0d0
+c311   continue
       do 31 i1=1,ntypes
         do 31 i2=1,i1
           write(1,12) (u(i,i1,i2),i=1,nr)
