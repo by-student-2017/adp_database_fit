@@ -56,14 +56,20 @@ adp_database_fit
 4. git clone https://github.com/by-student-2017/adp_database_fit.git
 5. cd ~/adp_database_fit
 6. gfortran -o Zhou04_ADP_1 Zhou04_create_adp.f
+  gfortran -o Zhou04_ADP_EW Zhou04_create_adp_ew.f
 7. gfortran -o plot_adp plot_adp.f
 
 
-## fit parameters by other methods
+## fit parameters by Nelder-Mead (NM) method
 1. cd ~/adp_database_fit
 2. cp ADP.input_temp ADP.input
-3. sed -i 's/Xx/Cu/g' ADP.input
-4. python nm_v4_debian.py
+3. sed -i 's/Xx/Cr/g' ADP.input
+4. python nm_v5_debian.py
+  or python nm_v4_debian.py
+
+
+## rewrite area (for nm_v5_debian.py)
+1. gedit struct.dat
 
 
 ## rewrite area
@@ -95,19 +101,19 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 1. cd ~/adp_database_fit
 2. pip install -U deap --user
 3. cp ADP.input_temp ADP.input
-4. sed -i 's/Xx/Cu/g' ADP.input
-5. python ga_v4_debian.py
+4. sed -i 's/Xx/Cr/g' ADP.input
+5. python ga_v5_debian.py
 
 
 ## fit parameters by baysian method
 1. cd ~/adp_database_fit
 2. pip install bayesian-optimization==1.1.0
 3. cp ADP.input_temp ADP.input
-4. sed -i 's/Xx/Cu/g' ADP.input
-5. python baysian_v4_debian.py
+4. sed -i 's/Xx/Cr/g' ADP.input
+5. python baysian_v5_debian.py
 
 
-## plot F, rho or z2r
+## plot F, rho, rphi u, and w.
 1. gnuplot png_adp.gp
 
 
@@ -162,17 +168,18 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!git clone https://github.com/by-student-2017/adp_database_fit.git
 	%cd /content/adp_database_fit
 	!gfortran -o Zhou04_ADP_1 Zhou04_create_adp.f
+	!gfortran -o Zhou04_ADP_EW Zhou04_create_adp_ew.f
 	!gfortran -o plot_adp plot_adp.f
 
 
-## fit parameters by other methods
+## fit parameters by Nelder-Mead (NM) method
 	%cd /content/adp_database_fit
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
-	!sed -i 's/Xx/Cu/g' ADP.input
-	!python2 nm_v4_gc.py
+	!sed -i 's/Xx/Cr/g' ADP.input
+	!python2 nm_v5_gc.py
 
 
 ## fit parameters by genetic algorithm
@@ -182,8 +189,8 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
-	!sed -i 's/Xx/Cu/g' ADP.input
-	!python2 ga_v4_gc.py
+	!sed -i 's/Xx/Cr/g' ADP.input
+	!python2 ga_v5_gc.py
 
 
 ## fit parameters by baysian method
@@ -193,8 +200,8 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
-	!sed -i 's/Xx/Cu/g' ADP.input
-	!python2 baysian_v4_gc.py
+	!sed -i 's/Xx/Cr/g' ADP.input
+	!python2 baysian_v5_gc.py
 
 
 ## plot F, rho, rphi u, and w.
