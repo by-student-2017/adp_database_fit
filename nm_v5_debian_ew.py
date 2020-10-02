@@ -217,7 +217,7 @@ def f(z):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if count > 9000 or count % int(3000*2.718**(-count/3000)+1) == 1:
+    if count > 14000 or count % int(7000*2.718**(-count/7000)+1) == 1:
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
