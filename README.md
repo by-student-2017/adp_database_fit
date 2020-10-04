@@ -113,7 +113,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 5. python baysian_v5_debian.py
 
 
-## plot F, rho, rphi u, and w.
+## plot F, rho, rphi, u, and w.
 1. gnuplot png_adp.gp
 
 
@@ -204,7 +204,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!python2 baysian_v5_gc.py
 
 
-## plot F, rho, rphi u, and w.
+## plot F, rho, rphi, u, and w.
 	!gnuplot png_adp.gp
 
 
