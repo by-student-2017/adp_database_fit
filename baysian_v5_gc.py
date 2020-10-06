@@ -136,112 +136,113 @@ max_ind = numpy.ones(n_gene) *  1.0
   #min_ind[i] = float(x[i]) - float(x[i])*0.1
   #max_ind[i] = float(x[i]) + float(x[i])*0.1
   #print "srarch area: "+min_ind[i]+"|"+max_ind[i]
-min_ind[0] = float(x0) - float(x0)*0.1
-max_ind[0] = float(x0) + float(x0)*0.1
-min_ind[1] = float(x1) - float(x1)*0.1
-max_ind[1] = float(x1) + float(x1)*0.1
-min_ind[2] = float(x2) - float(x2)*0.1
-max_ind[2] = float(x2) + float(x2)*0.1
-min_ind[3] = float(x3) - float(x3)*0.1
-max_ind[3] = float(x3) + float(x3)*0.1
-min_ind[4] = float(x4) - float(x4)*0.1
-max_ind[4] = float(x4) + float(x4)*0.1
-min_ind[5] = float(x5) - float(x5)*0.1
-max_ind[5] = float(x5) + float(x5)*0.1
-min_ind[6] = float(x6) - float(x6)*0.1
-max_ind[6] = float(x6) + float(x6)*0.1
-min_ind[7] = float(x7) - float(x7)*0.1
-max_ind[7] = float(x7) + float(x7)*0.1
-min_ind[8] = float(x8) - float(x8)*0.1
-max_ind[8] = float(x8) + float(x8)*0.1
-min_ind[9] = float(x9) - float(x9)*0.1
-max_ind[9] = float(x9) + float(x9)*0.1
-min_ind[10] = float(x10) - float(x10)*0.1
-max_ind[10] = float(x10) + float(x10)*0.1
-min_ind[11] = float(x11) - float(x11)*0.1
-max_ind[11] = float(x11) + float(x11)*0.1
-min_ind[12] = float(x12) - float(x12)*0.1
-max_ind[12] = float(x12) + float(x12)*0.1
-min_ind[13] = float(x13) - float(x13)*0.1
-max_ind[13] = float(x13) + float(x13)*0.1
-min_ind[14] = float(x14) - float(x14)*0.1
-max_ind[14] = float(x14) + float(x14)*0.1
-min_ind[15] = float(x15) - float(x15)*0.1
-max_ind[15] = float(x15) + float(x15)*0.1
-min_ind[16] = float(x16) - float(x16)*0.1
-max_ind[16] = float(x16) + float(x16)*0.1
-min_ind[17] = float(x17) - float(x17)*0.1
-max_ind[17] = float(x17) + float(x17)*0.1
-min_ind[18] = float(x18) - float(x18)*0.1
-max_ind[18] = float(x18) + float(x18)*0.1
-min_ind[19] = float(x19) - float(x19)*0.1
-max_ind[19] = float(x19) + float(x19)*0.1
-min_ind[20] = float(x20) - float(x20)*0.1
-max_ind[20] = float(x20) + float(x20)*0.1
-min_ind[21] = float(x21) - float(x21)*0.1
-max_ind[21] = float(x21) + float(x21)*0.1
+lim = 0.3
+min_ind[0] = float(x0) - float(x0)*lim
+max_ind[0] = float(x0) + float(x0)*lim
+min_ind[1] = float(x1) - float(x1)*lim
+max_ind[1] = float(x1) + float(x1)*lim
+min_ind[2] = float(x2) - float(x2)*lim
+max_ind[2] = float(x2) + float(x2)*lim
+min_ind[3] = float(x3) - float(x3)*lim
+max_ind[3] = float(x3) + float(x3)*lim
+min_ind[4] = float(x4) - float(x4)*lim
+max_ind[4] = float(x4) + float(x4)*lim
+min_ind[5] = float(x5) - float(x5)*lim
+max_ind[5] = float(x5) + float(x5)*lim
+min_ind[6] = float(x6) - float(x6)*lim
+max_ind[6] = float(x6) + float(x6)*lim
+min_ind[7] = float(x7) - float(x7)*lim
+max_ind[7] = float(x7) + float(x7)*lim
+min_ind[8] = float(x8) - float(x8)*lim
+max_ind[8] = float(x8) + float(x8)*lim
+min_ind[9] = float(x9) - float(x9)*lim
+max_ind[9] = float(x9) + float(x9)*lim
+min_ind[10] = float(x10) - float(x10)*lim
+max_ind[10] = float(x10) + float(x10)*lim
+min_ind[11] = float(x11) - float(x11)*lim
+max_ind[11] = float(x11) + float(x11)*lim
+min_ind[12] = float(x12) - float(x12)*lim
+max_ind[12] = float(x12) + float(x12)*lim
+min_ind[13] = float(x13) - float(x13)*lim
+max_ind[13] = float(x13) + float(x13)*lim
+min_ind[14] = float(x14) - float(x14)*lim
+max_ind[14] = float(x14) + float(x14)*lim
+min_ind[15] = float(x15) - float(x15)*lim
+max_ind[15] = float(x15) + float(x15)*lim
+min_ind[16] = float(x16) - float(x16)*lim
+max_ind[16] = float(x16) + float(x16)*lim
+min_ind[17] = float(x17) - float(x17)*lim
+max_ind[17] = float(x17) + float(x17)*lim
+min_ind[18] = float(x18) - float(x18)*lim
+max_ind[18] = float(x18) + float(x18)*lim
+min_ind[19] = float(x19) - float(x19)*lim
+max_ind[19] = float(x19) + float(x19)*lim
+min_ind[20] = float(x20) - float(x20)*lim
+max_ind[20] = float(x20) + float(x20)*lim
+min_ind[21] = float(x21) - float(x21)*lim
+max_ind[21] = float(x21) + float(x21)*lim
 # u
-min_ind[22] = float(x22) - float(x22)*0.1
-max_ind[22] = float(x22) + float(x22)*0.1
-min_ind[23] = float(x23) - float(x23)*0.1
-max_ind[23] = float(x23) + float(x23)*0.1
-min_ind[24] = float(x24) - float(x24)*0.1
-max_ind[24] = float(x24) + float(x24)*0.1
-min_ind[25] = float(x25) - float(x25)*0.1
-max_ind[25] = float(x25) + float(x25)*0.1
-min_ind[26] = float(x26) - float(x26)*0.1
-max_ind[26] = float(x26) + float(x26)*0.1
-min_ind[27] = float(x27) - float(x27)*0.1
-max_ind[27] = float(x27) + float(x27)*0.1
-min_ind[28] = float(x28) - float(x28)*0.1
-max_ind[28] = float(x28) + float(x28)*0.1
-min_ind[29] = float(x29) - float(x29)*0.1
-max_ind[29] = float(x29) + float(x29)*0.1
-min_ind[30] = float(x30) - float(x30)*0.1
-max_ind[30] = float(x30) + float(x30)*0.1
-min_ind[31] = float(x31) - float(x31)*0.1
-max_ind[31] = float(x31) + float(x31)*0.1
-min_ind[32] = float(x32) - float(x32)*0.1
-max_ind[32] = float(x32) + float(x32)*0.1
-min_ind[33] = float(x33) - float(x33)*0.1
-max_ind[33] = float(x33) + float(x33)*0.1
-min_ind[34] = float(x34) - float(x34)*0.1
-max_ind[34] = float(x34) + float(x34)*0.1
-min_ind[35] = float(x35) - float(x35)*0.1
-max_ind[35] = float(x35) + float(x35)*0.1
-min_ind[36] = float(x36) - float(x36)*0.1
-max_ind[36] = float(x36) + float(x36)*0.1
+min_ind[22] = float(x22) - float(x22)*lim
+max_ind[22] = float(x22) + float(x22)*lim
+min_ind[23] = float(x23) - float(x23)*lim
+max_ind[23] = float(x23) + float(x23)*lim
+min_ind[24] = float(x24) - float(x24)*lim
+max_ind[24] = float(x24) + float(x24)*lim
+min_ind[25] = float(x25) - float(x25)*lim
+max_ind[25] = float(x25) + float(x25)*lim
+min_ind[26] = float(x26) - float(x26)*lim
+max_ind[26] = float(x26) + float(x26)*lim
+min_ind[27] = float(x27) - float(x27)*lim
+max_ind[27] = float(x27) + float(x27)*lim
+min_ind[28] = float(x28) - float(x28)*lim
+max_ind[28] = float(x28) + float(x28)*lim
+min_ind[29] = float(x29) - float(x29)*lim
+max_ind[29] = float(x29) + float(x29)*lim
+min_ind[30] = float(x30) - float(x30)*lim
+max_ind[30] = float(x30) + float(x30)*lim
+min_ind[31] = float(x31) - float(x31)*lim
+max_ind[31] = float(x31) + float(x31)*lim
+min_ind[32] = float(x32) - float(x32)*lim
+max_ind[32] = float(x32) + float(x32)*lim
+min_ind[33] = float(x33) - float(x33)*lim
+max_ind[33] = float(x33) + float(x33)*lim
+min_ind[34] = float(x34) - float(x34)*lim
+max_ind[34] = float(x34) + float(x34)*lim
+min_ind[35] = float(x35) - float(x35)*lim
+max_ind[35] = float(x35) + float(x35)*lim
+min_ind[36] = float(x36) - float(x36)*lim
+max_ind[36] = float(x36) + float(x36)*lim
 # w
-min_ind[37] = float(x37) - float(x37)*0.1
-max_ind[37] = float(x37) + float(x37)*0.1
-min_ind[38] = float(x38) - float(x38)*0.1
-max_ind[38] = float(x38) + float(x38)*0.1
-min_ind[39] = float(x39) - float(x39)*0.1
-max_ind[39] = float(x39) + float(x39)*0.1
-min_ind[40] = float(x40) - float(x40)*0.1
-max_ind[40] = float(x40) + float(x40)*0.1
-min_ind[41] = float(x41) - float(x41)*0.1
-max_ind[41] = float(x41) + float(x41)*0.1
-min_ind[42] = float(x42) - float(x42)*0.1
-max_ind[42] = float(x42) + float(x42)*0.1
-min_ind[43] = float(x43) - float(x43)*0.1
-max_ind[43] = float(x43) + float(x43)*0.1
-min_ind[44] = float(x44) - float(x44)*0.1
-max_ind[44] = float(x44) + float(x44)*0.1
-min_ind[45] = float(x45) - float(x45)*0.1
-max_ind[45] = float(x45) + float(x45)*0.1
-min_ind[46] = float(x46) - float(x46)*0.1
-max_ind[46] = float(x46) + float(x46)*0.1
-min_ind[47] = float(x47) - float(x47)*0.1
-max_ind[47] = float(x47) + float(x47)*0.1
-min_ind[48] = float(x48) - float(x48)*0.1
-max_ind[48] = float(x48) + float(x48)*0.1
-min_ind[49] = float(x49) - float(x49)*0.1
-max_ind[49] = float(x49) + float(x49)*0.1
-min_ind[50] = float(x50) - float(x50)*0.1
-max_ind[50] = float(x50) + float(x50)*0.1
-min_ind[51] = float(x51) - float(x51)*0.1
-max_ind[51] = float(x51) + float(x51)*0.1
+min_ind[37] = float(x37) - float(x37)*lim
+max_ind[37] = float(x37) + float(x37)*lim
+min_ind[38] = float(x38) - float(x38)*lim
+max_ind[38] = float(x38) + float(x38)*lim
+min_ind[39] = float(x39) - float(x39)*lim
+max_ind[39] = float(x39) + float(x39)*lim
+min_ind[40] = float(x40) - float(x40)*lim
+max_ind[40] = float(x40) + float(x40)*lim
+min_ind[41] = float(x41) - float(x41)*lim
+max_ind[41] = float(x41) + float(x41)*lim
+min_ind[42] = float(x42) - float(x42)*lim
+max_ind[42] = float(x42) + float(x42)*lim
+min_ind[43] = float(x43) - float(x43)*lim
+max_ind[43] = float(x43) + float(x43)*lim
+min_ind[44] = float(x44) - float(x44)*lim
+max_ind[44] = float(x44) + float(x44)*lim
+min_ind[45] = float(x45) - float(x45)*lim
+max_ind[45] = float(x45) + float(x45)*lim
+min_ind[46] = float(x46) - float(x46)*lim
+max_ind[46] = float(x46) + float(x46)*lim
+min_ind[47] = float(x47) - float(x47)*lim
+max_ind[47] = float(x47) + float(x47)*lim
+min_ind[48] = float(x48) - float(x48)*lim
+max_ind[48] = float(x48) + float(x48)*lim
+min_ind[49] = float(x49) - float(x49)*lim
+max_ind[49] = float(x49) + float(x49)*lim
+min_ind[50] = float(x50) - float(x50)*lim
+max_ind[50] = float(x50) + float(x50)*lim
+min_ind[51] = float(x51) - float(x51)*lim
+max_ind[51] = float(x51) + float(x51)*lim
 #----------------------------------------------------------------------
 
 pbounds = {
@@ -380,30 +381,41 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if count > 9000 or count % int(3000*2.718**(-count/3000)+1) == 1:
+    if count > 18000 or count % int(9000*2.718**(-count/9000)+1) == 1:
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
-      commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
-      commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
-      commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
-      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-      commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
-      commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-      commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
-      commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-      commands.getoutput("./pwscf2force >> config_potfit_"+str(satom))
-      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps -o data_fix.in_"+str(t)+"K")
-      commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
-      commands.getoutput(lammps_adress+" < in.lmp_fix")
-      commands.getoutput("mv data.in.restart data.in_"+str(t)+"K")
-    #
-      commands.getoutput("./pwscf2force > config_"+str(t)+"K")
+      error_flag = ""
+      error_flag = commands.getoutput("grep ERROR log.lammps")
+      if error_flag == "":
+        commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
+        commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
+        commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
+        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+        commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
+        commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+        commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
+        commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+        commands.getoutput("./pwscf2force >> config_potfit_"+str(satom))
+        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps -o data_fix.in_"+str(t)+"K")
+        commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
+        commands.getoutput(lammps_adress+" < in.lmp_fix")
+        commands.getoutput("mv data.in.restart data.in_"+str(t)+"K")
+        #
+        commands.getoutput("./pwscf2force > config_"+str(t)+"K")
+      else:
+        y = 0.001/999999.9999
+        return y
     else:
       commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data_fix.in")
       commands.getoutput(lammps_adress+" < in.lmp_fix")
+      error_flag = ""
+      error_flag = commands.getoutput("grep ERROR log.lammps")
+      if error_flag != "":
+        y = 0.001/999999.9999
+        return y
     print "number of atoms: "+str(natom)
 
     # stress = pressure
