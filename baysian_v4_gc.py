@@ -343,7 +343,7 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   text = text.replace('wn3',str(x41))
   text = text.replace('w0',str(x42))
   text = text.replace('w1',str(x43))
-  text = text.replace('w21,str(x44))
+  text = text.replace('w21',str(x44))
   text = text.replace('w22',str(x45))
   text = text.replace('w31',str(x46))
   text = text.replace('w32',str(x47))
