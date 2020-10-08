@@ -1,0 +1,379 @@
+Mg_H.adp.alloy.txt
+-----------------------------------------------------
+Mg u: 2.2156 (420p), 4.90374 (607p), 5.6393 (1069p)
+      urhoin(it), urhoe(it), urhoout(it)
+      urhoin(ntypes)=urhol(ntypes)*urhoe(ntypes)
+      urhoout(ntypes)=urhoh(ntypes)*urhoe(ntypes)
+      urhol(ntypes) = 0.451818
+      urhoh(ntypes) = 1.15
+      urhos(it) = 5.6393
+
+      ui0(it) = 0.071226
+      ui1(it) = 0.072579
+      ui2(it) = -0.90641
+      ui3(it) = -0.45359
+
+test 3rd
+  	um0(it) =0.032462 ± 1.65e-09
+  	um1(it)	=-0.19765 ± 6.66e-08
+< urhoe(it)
+  	um2(it)	=0.63897 ± 7.28e-07
+  	um3(it)	=3.6773 ± 2.28e-06
+> urhoe(it)
+  	um2(it)	=0.36282 ± 0.00114
+  	um3(it)	=-0.20582 ± 0.00133
+
+  	unn  	=4.0022 ± 0.802
+  	un   	=-0.18732 ± 0.0566
+  	urhos	=3.5431 ± 0.416
+
+test 4th
+  	um0(it)	=0.032462 ± 0
+  	um1(it)	=-0.19765 ± 0
+< urhoe(it)
+  	um2(it)	=0.63865 ± 2.14e-05
+  	um3(it)	=3.6741 ± 0.000284
+  	um4(it)	=-0.0085654 ± 0.000919
+> urhoe(it)
+  	um2(it)	=0.4423 ± 0.00176
+  	um3(it)	=-0.4255 ± 0.0047
+  	um4(it)	=0.14456 ± 0.00307
+      
+urhos(it) = urhoh として省略し、
+umを上記の3rdにしたり、uiやumを4次関数や5次関数にする方がよい。
+-----------------------------------------------------
+Mg w: 2.2156, 4.90374, 5.6393
+      wrhoin(it), wrhoe(it), wrhoout(it)
+      wrhoin(ntypes)=wrhol(ntypes)*wrhoe(ntypes)
+      wrhoout(ntypes)=1.15*wrhoe(ntypes)
+      wrhol(ntypes) = 0.451818
+      wrhoh(ntypes) = 1.15
+      wrhos(it) = 5.6393
+
+      wi0(it) = 0.016847
+      wi1(it) = 0.86257
+      wi2(it) = 4.7914
+      wi3(it) = 2.3158
+
+      wm0(it) = -0.00088752
+      wm1(it) = -0.0078877
+      wm2(it) = 0.091861
+      wm3(it) = um4(it) = 0.30489
+
+  	wnn  	=-3.0871 ± 83
+  	wn   	=0.0046283 ± 1.42
+  	wrhos	=5.8344 ± 403
+-----------------------------------------------------
+H u: 1.9941, 2.43, 3.77617
+      urhoin(it), urhoe(it), urhoout(it)
+      urhoin(ntypes)=urhol(ntypes)*urhoe(ntypes)
+      urhoout(ntypes)=urhoh(ntypes)*urhoe(ntypes)
+      urhol(ntypes) = 0.820617
+      urhoh(ntypes) = 1.55398
+      urhos(it) = 4.3426
+
+      ui0(it) = 0.10602
+      ui1(it) = -0.11104
+      ui2(it) = -3.6431
+      ui3(it) = -1.8492
+
+test 3rd
+  	K0	=0.079098 ± 5.71e-05
+  	K1	=-0.050854 ± 0.00289
+< urhoe(it) = 2.43
+  	K2	=0.87197 ± 0.0404
+  	K3	=3.2645 ± 0.152
+> urhoe(it) = 2.43
+  	K2	=-0.045555 ± 0.00144
+  	K3	=-0.11412 ± 0.00335
+
+  	unn  	=9.1936 ± 0.19
+  	un   	=0.019298 ± 0.000304
+  	urhos	=3.7762 ± 0
+-----------------------------------------------------
+H w: 1.9941, 2.43, 3.77617
+      wrhoin(it), wrhoe(it), wrhoout(it)
+      wrhoin(ntypes)=wrhol(ntypes)*wrhoe(ntypes)
+      wrhoout(ntypes)=wrhoh(ntypes)*wrhoe(ntypes)
+      wrhol(ntypes) = 0.820617
+      wrhoh(ntypes) = 1.55398
+      wrhos(it) = 3.77617
+
+      wi0(it) = -0.017187
+      wi1(it) = -0.025071
+      wi2(it) = 1.2668 
+      wi3(it) = 0.64454
+
+      wm0(it) = -0.019426
+      wm1(it) = -0.020446
+      wm2(it) = 0.055579
+      wm3(it) = um(it) = 0.044557
+
+  	wnn  	=12.117 ± 0.181
+  	wn   	=-0.0071477 ± 6.26e-05
+  	wrhos	=3.7762 ± 0
+-----------------------------------------------------
+2010--Apostol-F-Mishin-Y--Al-H
+https://www.ctcms.nist.gov/potentials/system/Al/
+Al u=d: all 0.0
+Al w=q: all 0.0
+
+H  1.38, 1.43478, 1.65
+      urhoin(it), urhoe(it), urhoout(it)
+      urhoin(ntypes)=urhol(ntypes)*urhoe(ntypes)
+      urhoout(ntypes)=urhoh(ntypes)*urhoe(ntypes)
+      urhol(ntypes) = 0.96182
+      urhoh(ntypes) = 1.15
+      urhos(it) = 1.65
+
+u1
+  	K0	=0.036504 ± 7.98e-05
+  	K1	=-0.27391 ± 0.000824
+  	K2	=-0.056376 ± 0.00227
+  	K3	=-0.4402 ± 0.00176
+
+u2
+  	K0	=0.029724 ± 9.94e-07
+  	K1	=-0.21055 ± 1.89e-05
+  	K2	=0.33004 ± 9.69e-05
+  	K3	=0.38642 ± 0.00126
+
+  	un   	=0.0070917 ± 1.33e-05
+  	unn  	=12.576 ± 0.0298
+  	urhos	=1.65 ± 0
+or 3rd　（一旦０になるが距離が長くなると0にならない！！！）
+  	K0	=0.0067051 ± 7.37e-06
+  	K1	=-0.097536 ± 0.00023
+  	K2	=0.48235 ± 0.002
+  	K3	=-0.80495 ± 0.00511
+
+H w=q: about u=d * 1/2
+-----------------------------------------------------
+Cr.adp.txt
+Cr u=d: all 0.0
+
+Cr w: 1.2202, 1.65, 3.34
+      wrhoin(it), wrhoe(it), wrhoout(it)
+      wrhoin(ntypes)=wrhol(ntypes)*wrhoe(ntypes)
+      wrhoout(ntypes)=wrhoh(ntypes)*wrhoe(ntypes)
+      wrhol(ntypes) = 0.739394
+      wrhoh(ntypes) = 2.02424
+      wrhos(it) = 3.34
+
+w1
+  	K0	=-0.043252 ± 0.000919
+  	K1	=-0.11069 ± 0.00972
+  	K2	=7.0961 ± 0.0282
+  	K3	=4.3185 ± 0.0237
+
+w2
+  	K0	=-0.064217 ± 0
+  	K1	=0.007417 ± 0
+  	K2	=-0.099911 ± 0.00531
+  	K3	=-2.2547 ± 0.0222
+> urhoe(it)
+  	K2	=0.018965 ± 8.35e-05
+  	K3	=0.008033 ± 6.44e-05
+
+  	wnn  	=5.5569 ± 0.0136
+  	wn   	=-0.032056 ± 6.26e-05
+  	wrhos	=3.34 ± 0
+or 3rd
+  	K0	=-0.029809 ± 1.8e-05
+  	K1	=0.1714 ± 0.000278
+  	K2	=-0.31546 ± 0.00116
+  	K3	=0.18364 ± 0.00138
+-----------------------------------------------------
+CrNi.adp.txt
+Ni u=d: all 0.0
+
+Ni w: 1.3753, 2.78261, 3.2
+      wrhoin(it), wrhoe(it), wrhoout(it)
+      wrhoin(ntypes)=wrhol(ntypes)*wrhoe(ntypes)
+      wrhoout(ntypes)=wrhoh(ntypes)*wrhoe(ntypes)
+      wrhol(ntypes) = 0.494248
+      wrhoh(ntypes) = 1.15
+      wrhos(it) = 3.2
+
+w1
+  	K0	=0.10967 ± 0.00396
+  	K1	=-0.92901 ± 0.0415
+  	K2	=-26.118 ± 0.116
+  	K3	=-15.624 ± 0.0916
+
+w2
+  	K0	=-0.0051335 ± 2.27e-05
+  	K1	=-0.079796 ± 0.000151
+  	K2	=0.3699 ± 0.00124
+  	K3	=0.023808 ± 0.00238
+
+  	wnn  	=4.1033 ± 0.0178
+  	wn   	=-0.012314 ± 4.36e-05
+  	wrhos	=3.2 ± 0
+or 3rd
+  	K0	=-0.010306 ± 1.49e-05
+  	K1	=0.027754 ± 0.000213
+  	K2	=0.013031 ± 0.000814
+  	K3	=-0.052907 ± 0.000878
+-----------------------------------------------------
+Ta.adp.txt
+Ta u=d: all 0.0
+
+Ta w: 2.0, 2.78261, 3.2
+      wrhoin(it), wrhoe(it), wrhoout(it)
+      wrhoin(ntypes)=wrhol(ntypes)*wrhoe(ntypes)
+      wrhoout(ntypes)=wrhoh(ntypes)*wrhoe(ntypes)
+      wrhol(ntypes) = 0.71875
+      wrhoh(ntypes) = 1.15
+      wrhos(it) = 3.2
+
+w1
+  	K0	=0.38796 ± 0.000312
+  	K1	=-1.6381 ± 0.00272
+  	K2	=6.1839 ± 0.00636
+  	K3	=2.619 ± 0.0042
+
+w2
+  	K0	=0.017611 ± 1.04e-05
+  	K1	=-0.21173 ± 9.27e-05
+  	K2	=1.8418 ± 0.000958
+  	K3	=-6.8634 ± 0.00402
+
+  	wnn  	=11.501 ± 0.432
+  	wn   	=0.0062882 ± 0.000188
+  	wrhos	=3.2 ± 0
+or 3rd
+  	K0	=0.0049005 ± 1.03e-05
+  	K1	=-0.043805 ± 0.000103
+  	K2	=0.083913 ± 0.000274
+  	K3	=-0.046239 ± 0.000205
+-----------------------------------------------------
+Si_Au.mod.adp.txt
+
+Si u: 2.63, 3.5, 4.5
+      urhoin(it), urhoe(it), urhoout(it)
+      urhoin(ntypes)=urhol(ntypes)*urhoe(ntypes)
+      urhoout(ntypes)=urhoh(ntypes)*urhoe(ntypes)
+      urhol(ntypes) = 0.751429
+      urhoh(ntypes) = 1.28571
+      urhos(it) = 4.5
+
+u1
+  	K0	=-0.062539 ± 0.000251
+  	K1	=0.81881 ± 0.0022
+  	K2	=0.33357 ± 0.00514
+  	K3	=0.17338 ± 0.0034
+
+u2
+  	K0	=0.0058953 ± 5.66e-05
+  	K1	=0.01147 ± 0.00144
+  	K2	=0.19928 ± 0.0106
+  	K3	=4.219 ± 0.0234
+>
+  	K2	=-0.84946 ± 0.0168
+  	K3	=2.6998 ± 0.0796
+
+  	unn  	=6.0232 ± 0.093
+  	un   	=-0.0048765 ± 6.14e-05
+  	urhos	=4.5 ± 0
+or 3rd
+  	K0	=-0.0047898 ± 5.67e-05
+  	K1	=0.037267 ± 0.00132
+  	K2	=-0.10353 ± 0.00829
+  	K3	=0.091889 ± 0.0147
+-----------------------------------------------------
+Si_Au.mod.adp.txt (under constructing)
+
+Si w: 2.5836, 3.5, 4.0
+      wrhoin(it), wrhoe(it), wrhoout(it)
+      wrhoin(ntypes)=wrhol(ntypes)*wrhoe(ntypes)
+      wrhoout(ntypes)=wrhoh(ntypes)*wrhoe(ntypes)
+      wrhol(ntypes) = 0.738171
+      wrhoh(ntypes) = 1.14286
+      wrhos(it) = 4.0
+
+w1
+  	K0	=-0.062992 ± 0.000106
+  	K1	=0.57369 ± 0.000928
+  	K2	=0.1392 ± 0.00217
+  	K3	=0.072263 ± 0.00144
+
+w2
+  	K0	=0.002532 ± 1.72e-05
+  	K1	=0.01151 ± 0.000469
+  	K2	=0.32893 ± 0.00342
+  	K3	=2.8976 ± 0.00705
+>
+  	K2	=-2.2064 ± 0.162
+  	K3	=32.787 ± 3.61
+
+  	wnn  	=3.4957 ± 0.0784
+  	wn   	=0.0015411 ± 2.6e-05
+  	wrhos	=4 ± 0
+-----------------------------------------------------
+Si_Au.mod.adp.txt
+
+Au
+
+Au u: 2.8553, 3.5, 4.5
+      urhoin(it), urhoe(it), urhoout(it)
+      urhoin(ntypes)=urhol(ntypes)*urhoe(ntypes)
+      urhoout(ntypes)=urhoh(ntypes)*urhoe(ntypes)
+      urhol(ntypes) = 0.751429
+      urhoh(ntypes) = 1.28571
+      urhos(it) = 4.5
+
+u1
+  	K0	=-0.074389 ± 0.000263
+  	K1	=0.59988 ± 0.00227
+  	K2	=0.27694 ± 0.00527
+  	K3	=0.14643 ± 0.00346
+
+u2
+  	K0	=-0.01598 ± 1.36e-05
+  	K1	=0.16919 ± 0.000137
+  	K2	=-0.72131 ± 0.000803
+  	K3	=1.0775 ± 0.0043
+
+  	unn  	=8.0437 ± 0.132
+  	un   	=-0.0019229 ± 2.47e-05
+  	urhos	=4.5 ± 0
+or 3rd
+  	K0	=-0.0016935 ± 1.18e-05
+  	K1	=0.011633 ± 0.000279
+  	K2	=-0.014644 ± 0.00177
+  	K3	=-0.014264 ± 0.00316
+-----------------------------------------------------
+Si_Au.mod.adp.txt
+
+Au
+
+Au w: 2.0, 2.43478, 2.8
+      wrhoin(it), wrhoe(it), wrhoout(it)
+      wrhoin(ntypes)=wrhol(ntypes)*wrhoe(ntypes)
+      wrhoout(ntypes)=wrhoh(ntypes)*wrhoe(ntypes)
+      wrhol(ntypes) = 0.821429
+      wrhoh(ntypes) = 1.17054
+      wrhos(it) = 2.8
+
+w1
+  	K0	=0.14941 ± 0.000238
+  	K1	=-1.8767 ± 0.00205
+  	K2	=0.024237 ± 0.00475
+  	K3	=0.015216 ± 0.00311
+
+w2
+  	K0	=-0.016233 ± 0.00011
+  	K1	=-0.15833 ± 0.00175
+  	K2	=2.828 ± 0.013
+  	K3	=-10.379 ± 0.117
+
+  	unn  	=2.4906 ± 0.0195
+  	un   	=-0.012676 ± 7.83e-05
+  	urhos	=2.8 ± 0
+or 3rd
+  	K0	=-0.0016935 ± 1.18e-05
+  	K1	=0.011633 ± 0.000279
+  	K2	=-0.014644 ± 0.00177
+  	K3	=-0.014264 ± 0.00316
+-----------------------------------------------------
