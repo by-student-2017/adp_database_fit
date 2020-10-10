@@ -1,19 +1,10 @@
-import random
-from deap import creator, base, tools, algorithms
+from bayes_opt import BayesianOptimization
 import numpy
 import numpy as np
 import commands
 import sys
-
-print "Attention"
-print "this code need Zhou04_ADP_EW"
-print "  In the first time, need to command 'gfortran Zhou04_create_adp_ew.f -o Zhou04_ADP_EW'"
-print "this code does not recommend element < Sc"
-print "all u parameters = 0.0"
-print " "
 #----------------------------------------------------------------------
 file_tmp = 'ADP_code.tmp'
-file_tmp_ew = 'ADP_code_ew.tmp'
 file_inp = 'ADP_code'
 
 cif2cell_adress = "cif2cell"
@@ -131,107 +122,253 @@ x48 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+54){print $1}}' ADP_
 x49 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+55){print $1}}' ADP_code.init | head -1"))
 x50 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+56){print $1}}' ADP_code.init | head -1"))
 x51 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+57){print $1}}' ADP_code.init | head -1"))
-
-# u
-fi0 = open(file_tmp,'r')
-text0 = fi0.read().replace('urhoe',str(x22).replace("[","").replace("]",""))
-text0 = text0.replace('un0',str(x23).replace("[","").replace("]",""))
-text0 = text0.replace('un1',str(x24).replace("[","").replace("]",""))
-text0 = text0.replace('un2',str(x25).replace("[","").replace("]",""))
-text0 = text0.replace('un3',str(x26).replace("[","").replace("]",""))
-text0 = text0.replace('u0',str(x27).replace("[","").replace("]",""))
-text0 = text0.replace('u1',str(x28).replace("[","").replace("]",""))
-text0 = text0.replace('u21',str(x29).replace("[","").replace("]",""))
-text0 = text0.replace('u22',str(x30).replace("[","").replace("]",""))
-text0 = text0.replace('u31',str(x31).replace("[","").replace("]",""))
-text0 = text0.replace('u32',str(x32).replace("[","").replace("]",""))
-text0 = text0.replace('ueta',str(x33).replace("[","").replace("]",""))
-text0 = text0.replace('uep',str(x34).replace("[","").replace("]",""))
-text0 = text0.replace('urhol',str(x35).replace("[","").replace("]",""))
-text0 = text0.replace('urhoh',str(x36).replace("[","").replace("]",""))
-with open(file_tmp_ew,'w') as f:
-  print >> f, text0
-
 x = [x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,
+      x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,
       x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51]
-print "initial parameters: ", x
+print "initial parameters: ",x
+
+#----------------------------------------------------------------------
+n_gene = 52 # number of parameters, number of individual +1
+min_ind = numpy.ones(n_gene) * -1.0
+max_ind = numpy.ones(n_gene) *  1.0
+#for i in range(n_gene): 
+  #min_ind[i] = b1[i][0]
+  #max_ind[i] = b1[i][1]
+  #min_ind[i] = float(x[i]) - float(x[i])*0.1
+  #max_ind[i] = float(x[i]) + float(x[i])*0.1
+  #print "srarch area: "+min_ind[i]+"|"+max_ind[i]
+lim = 0.5
+min_ind[0] = float(x0) - float(x0)*lim
+max_ind[0] = float(x0) + float(x0)*lim
+min_ind[1] = float(x1) - float(x1)*lim
+max_ind[1] = float(x1) + float(x1)*lim
+min_ind[2] = float(x2) - float(x2)*lim
+max_ind[2] = float(x2) + float(x2)*lim
+min_ind[3] = float(x3) - float(x3)*lim
+max_ind[3] = float(x3) + float(x3)*lim
+min_ind[4] = float(x4) - float(x4)*lim
+max_ind[4] = float(x4) + float(x4)*lim
+min_ind[5] = float(x5) - float(x5)*lim
+max_ind[5] = float(x5) + float(x5)*lim
+min_ind[6] = float(x6) - float(x6)*lim
+max_ind[6] = float(x6) + float(x6)*lim
+min_ind[7] = float(x7) - float(x7)*lim
+max_ind[7] = float(x7) + float(x7)*lim
+min_ind[8] = float(x8) - float(x8)*lim
+max_ind[8] = float(x8) + float(x8)*lim
+min_ind[9] = float(x9) - float(x9)*lim
+max_ind[9] = float(x9) + float(x9)*lim
+min_ind[10] = float(x10) - float(x10)*lim
+max_ind[10] = float(x10) + float(x10)*lim
+min_ind[11] = float(x11) - float(x11)*lim
+max_ind[11] = float(x11) + float(x11)*lim
+min_ind[12] = float(x12) - float(x12)*lim
+max_ind[12] = float(x12) + float(x12)*lim
+min_ind[13] = float(x13) - float(x13)*lim
+max_ind[13] = float(x13) + float(x13)*lim
+min_ind[14] = float(x14) - float(x14)*lim
+max_ind[14] = float(x14) + float(x14)*lim
+min_ind[15] = float(x15) - float(x15)*lim
+max_ind[15] = float(x15) + float(x15)*lim
+min_ind[16] = float(x16) - float(x16)*lim
+max_ind[16] = float(x16) + float(x16)*lim
+min_ind[17] = float(x17) - float(x17)*lim
+max_ind[17] = float(x17) + float(x17)*lim
+min_ind[18] = float(x18) - float(x18)*lim
+max_ind[18] = float(x18) + float(x18)*lim
+min_ind[19] = float(x19) - float(x19)*lim
+max_ind[19] = float(x19) + float(x19)*lim
+min_ind[20] = float(x20) - float(x20)*lim
+max_ind[20] = float(x20) + float(x20)*lim
+min_ind[21] = float(x21) - float(x21)*lim
+max_ind[21] = float(x21) + float(x21)*lim
+# u
+min_ind[22] = float(x22) - float(x22)*lim
+max_ind[22] = float(x22) + float(x22)*lim
+min_ind[23] = float(x23) - float(x23)*lim
+max_ind[23] = float(x23) + float(x23)*lim
+min_ind[24] = float(x24) - float(x24)*lim
+max_ind[24] = float(x24) + float(x24)*lim
+min_ind[25] = float(x25) - float(x25)*lim
+max_ind[25] = float(x25) + float(x25)*lim
+min_ind[26] = float(x26) - float(x26)*lim
+max_ind[26] = float(x26) + float(x26)*lim
+min_ind[27] = float(x27) - float(x27)*lim
+max_ind[27] = float(x27) + float(x27)*lim
+min_ind[28] = float(x28) - float(x28)*lim
+max_ind[28] = float(x28) + float(x28)*lim
+min_ind[29] = float(x29) - float(x29)*lim
+max_ind[29] = float(x29) + float(x29)*lim
+min_ind[30] = float(x30) - float(x30)*lim
+max_ind[30] = float(x30) + float(x30)*lim
+min_ind[31] = float(x31) - float(x31)*lim
+max_ind[31] = float(x31) + float(x31)*lim
+min_ind[32] = float(x32) - float(x32)*lim
+max_ind[32] = float(x32) + float(x32)*lim
+min_ind[33] = float(x33) - float(x33)*lim
+max_ind[33] = float(x33) + float(x33)*lim
+min_ind[34] = float(x34) - float(x34)*lim
+max_ind[34] = float(x34) + float(x34)*lim
+min_ind[35] = float(x35) - float(x35)*lim
+max_ind[35] = float(x35) + float(x35)*lim
+min_ind[36] = float(x36) - float(x36)*lim
+max_ind[36] = float(x36) + float(x36)*lim
+# w
+min_ind[37] = float(x37) - float(x37)*lim
+max_ind[37] = float(x37) + float(x37)*lim
+min_ind[38] = float(x38) - float(x38)*lim
+max_ind[38] = float(x38) + float(x38)*lim
+min_ind[39] = float(x39) - float(x39)*lim
+max_ind[39] = float(x39) + float(x39)*lim
+min_ind[40] = float(x40) - float(x40)*lim
+max_ind[40] = float(x40) + float(x40)*lim
+min_ind[41] = float(x41) - float(x41)*lim
+max_ind[41] = float(x41) + float(x41)*lim
+min_ind[42] = float(x42) - float(x42)*lim
+max_ind[42] = float(x42) + float(x42)*lim
+min_ind[43] = float(x43) - float(x43)*lim
+max_ind[43] = float(x43) + float(x43)*lim
+min_ind[44] = float(x44) - float(x44)*lim
+max_ind[44] = float(x44) + float(x44)*lim
+min_ind[45] = float(x45) - float(x45)*lim
+max_ind[45] = float(x45) + float(x45)*lim
+min_ind[46] = float(x46) - float(x46)*lim
+max_ind[46] = float(x46) + float(x46)*lim
+min_ind[47] = float(x47) - float(x47)*lim
+max_ind[47] = float(x47) + float(x47)*lim
+min_ind[48] = float(x48) - float(x48)*lim
+max_ind[48] = float(x48) + float(x48)*lim
+min_ind[49] = float(x49) - float(x49)*lim
+max_ind[49] = float(x49) + float(x49)*lim
+min_ind[50] = float(x50) - float(x50)*lim
+max_ind[50] = float(x50) + float(x50)*lim
+min_ind[51] = float(x51) - float(x51)*lim
+max_ind[51] = float(x51) + float(x51)*lim
+#----------------------------------------------------------------------
+
+pbounds = {
+   'x0': (float(min_ind[0]),float(max_ind[0])),
+   'x1': (float(min_ind[1]),float(max_ind[1])),
+   'x2': (float(min_ind[2]),float(max_ind[2])),
+   'x3': (float(min_ind[3]),float(max_ind[3])),
+   'x4': (float(min_ind[4]),float(max_ind[4])),
+   'x5': (float(min_ind[5]),float(max_ind[5])),
+   'x6': (float(min_ind[6]),float(max_ind[6])),
+   'x7': (float(min_ind[7]),float(max_ind[7])),
+   'x8': (float(min_ind[8]),float(max_ind[8])),
+   'x9': (float(min_ind[9]),float(max_ind[9])),
+  'x10': (float(min_ind[10]),float(max_ind[10])),
+  'x11': (float(min_ind[11]),float(max_ind[11])),
+  'x12': (float(min_ind[12]),float(max_ind[12])),
+  'x13': (float(min_ind[13]),float(max_ind[13])),
+  'x14': (float(min_ind[14]),float(max_ind[14])),
+  'x15': (float(min_ind[15]),float(max_ind[15])),
+  'x16': (float(min_ind[16]),float(max_ind[16])),
+  'x17': (float(min_ind[17]),float(max_ind[17])),
+  'x18': (float(min_ind[18]),float(max_ind[18])),
+  'x19': (float(min_ind[19]),float(max_ind[19])),
+  'x20': (float(min_ind[20]),float(max_ind[20])),
+  'x21': (float(min_ind[21]),float(max_ind[21])),
+  'x22': (float(min_ind[22]),float(max_ind[22])),
+  'x23': (float(min_ind[23]),float(max_ind[23])),
+  'x24': (float(min_ind[24]),float(max_ind[24])),
+  'x25': (float(min_ind[25]),float(max_ind[25])),
+  'x26': (float(min_ind[26]),float(max_ind[26])),
+  'x27': (float(min_ind[27]),float(max_ind[27])),
+  'x28': (float(min_ind[28]),float(max_ind[28])),
+  'x29': (float(min_ind[29]),float(max_ind[29])),
+  'x30': (float(min_ind[30]),float(max_ind[30])),
+  'x31': (float(min_ind[31]),float(max_ind[31])),
+  'x32': (float(min_ind[32]),float(max_ind[32])),
+  'x33': (float(min_ind[33]),float(max_ind[33])),
+  'x34': (float(min_ind[34]),float(max_ind[34])),
+  'x35': (float(min_ind[35]),float(max_ind[35])),
+  'x36': (float(min_ind[36]),float(max_ind[36])),
+  'x37': (float(min_ind[37]),float(max_ind[37])),
+  'x38': (float(min_ind[38]),float(max_ind[38])),
+  'x39': (float(min_ind[39]),float(max_ind[39])),
+  'x40': (float(min_ind[40]),float(max_ind[40])),
+  'x41': (float(min_ind[41]),float(max_ind[41])),
+  'x42': (float(min_ind[42]),float(max_ind[42])),
+  'x43': (float(min_ind[43]),float(max_ind[43])),
+  'x44': (float(min_ind[44]),float(max_ind[44])),
+  'x45': (float(min_ind[45]),float(max_ind[45])),
+  'x46': (float(min_ind[46]),float(max_ind[46])),
+  'x47': (float(min_ind[47]),float(max_ind[47])),
+  'x48': (float(min_ind[48]),float(max_ind[48])),
+  'x49': (float(min_ind[49]),float(max_ind[49])),
+  'x50': (float(min_ind[50]),float(max_ind[50])),
+  'x51': (float(min_ind[51]),float(max_ind[51]))}# boundary
+print "-----"
+print "boundary of parameters: ",pbounds
+print "-----"
 
 count = 0
 #----------------------------------------------------------------------
-creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
-
-toolbox = base.Toolbox()
-
-n_gene = 37 # number of parameters
-min_ind = numpy.ones(n_gene) * -1.0
-max_ind = numpy.ones(n_gene) *  1.0
-for i in range(n_gene):
-  #min_ind[i] = b1[i][0]
-  #max_ind[i] = b1[i][1]
-  min_ind[i] = float(x[i]) - float(x[i])*0.5
-  max_ind[i] = float(x[i]) + float(x[i])*0.5
-  print "search area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
-#----------------------------------------------------------------------
-def create_ind_uniform(min_ind, max_ind):
-  ind = []
-  for min, max in zip(min_ind, max_ind):
-    ind.append(random.uniform(min, max))
-  return ind
-#----------------------------------------------------------------------
-toolbox.register("create_ind", create_ind_uniform, min_ind, max_ind)
-toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.create_ind)
-toolbox.register("population", tools.initRepeat, list, toolbox.individual)
-#----------------------------------------------------------------------
-#def evalOneMax(individual):
-#  return sum(individual),
-#----------------------------------------------------------------------
-def evalOneMax(individual):
+def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,
+               x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,
+               x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51):
   
   print "------------------------"
   global count
   count += 1
-  print count
+  #print count
 
-  fi = open(file_tmp_ew,'r')
-  text = fi.read().replace('re',str(individual[0]).replace("[","").replace("]",""))
-  text = text.replace('fe',str(individual[1]).replace("[","").replace("]",""))
-  text = text.replace('Frhoe1',str(individual[2]).replace("[","").replace("]",""))
-  text = text.replace('Frhoe2',str(individual[3]).replace("[","").replace("]",""))
-  text = text.replace('alpha',str(individual[4]).replace("[","").replace("]",""))
-  text = text.replace('beta',str(individual[5]).replace("[","").replace("]",""))
-  text = text.replace('Ap',str(individual[6]).replace("[","").replace("]",""))
-  text = text.replace('Bp',str(individual[7]).replace("[","").replace("]",""))
-  text = text.replace('kappa',str(individual[8]).replace("[","").replace("]",""))
-  text = text.replace('lambda',str(individual[9]).replace("[","").replace("]",""))
-  text = text.replace('Fn0',str(individual[10]).replace("[","").replace("]",""))
-  text = text.replace('Fn1',str(individual[11]).replace("[","").replace("]",""))
-  text = text.replace('Fn2',str(individual[12]).replace("[","").replace("]",""))
-  text = text.replace('Fn3',str(individual[13]).replace("[","").replace("]",""))
-  text = text.replace('F0',str(individual[14]).replace("[","").replace("]",""))
-  text = text.replace('F1',str(individual[15]).replace("[","").replace("]",""))
-  text = text.replace('F2',str(individual[16]).replace("[","").replace("]",""))
-  text = text.replace('F3',str(individual[17]).replace("[","").replace("]",""))
-  text = text.replace('Feta',str(individual[18]).replace("[","").replace("]",""))
-  text = text.replace('Fep',str(individual[19]).replace("[","").replace("]",""))
-  text = text.replace('F4',str(individual[20]).replace("[","").replace("]",""))
-  text = text.replace('Frhol',str(individual[21]).replace("[","").replace("]",""))
+  fi = open(file_tmp,'r')
+  text = fi.read().replace('re',str(x0))
+  text = text.replace('fe',str(x1))
+  text = text.replace('Frhoe1',str(x2))
+  text = text.replace('Frhoe2',str(x3))
+  text = text.replace('alpha',str(x4))
+  text = text.replace('beta',str(x5))
+  text = text.replace('Ap',str(x6))
+  text = text.replace('Bp',str(x7))
+  text = text.replace('kappa',str(x8))
+  text = text.replace('lambda',str(x9))
+  text = text.replace('Fn0',str(x10))
+  text = text.replace('Fn1',str(x11))
+  text = text.replace('Fn2',str(x12))
+  text = text.replace('Fn3',str(x13))
+  text = text.replace('F0',str(x14))
+  text = text.replace('F1',str(x15))
+  text = text.replace('F2',str(x16))
+  text = text.replace('F3',str(x17))
+  text = text.replace('Feta',str(x18))
+  text = text.replace('Fep',str(x19))
+  text = text.replace('F4',str(x20))
+  text = text.replace('Frhol',str(x21))
+  # u
+  text = text.replace('urhoe',str(x22))
+  text = text.replace('un0',str(x23))
+  text = text.replace('un1',str(x24))
+  text = text.replace('un2',str(x25))
+  text = text.replace('un3',str(x26))
+  text = text.replace('u0',str(x27))
+  text = text.replace('u1',str(x28))
+  text = text.replace('u21',str(x29))
+  text = text.replace('u22',str(x30))
+  text = text.replace('u31',str(x31))
+  text = text.replace('u32',str(x32))
+  text = text.replace('ueta',str(x33))
+  text = text.replace('uep',str(x34))
+  text = text.replace('urhol',str(x35))
+  text = text.replace('urhoh',str(x36))
   # w
-  text = text.replace('wrhoe',str(individual[22]).replace("[","").replace("]",""))
-  text = text.replace('wn0',str(individual[23]).replace("[","").replace("]",""))
-  text = text.replace('wn1',str(individual[24]).replace("[","").replace("]",""))
-  text = text.replace('wn2',str(individual[25]).replace("[","").replace("]",""))
-  text = text.replace('wn3',str(individual[26]).replace("[","").replace("]",""))
-  text = text.replace('w0',str(individual[27]).replace("[","").replace("]",""))
-  text = text.replace('w1',str(individual[28]).replace("[","").replace("]",""))
-  text = text.replace('w21',str(individual[29]).replace("[","").replace("]",""))
-  text = text.replace('w22',str(individual[30]).replace("[","").replace("]",""))
-  text = text.replace('w31',str(individual[31]).replace("[","").replace("]",""))
-  text = text.replace('w32',str(individual[32]).replace("[","").replace("]",""))
-  text = text.replace('weta',str(individual[33]).replace("[","").replace("]",""))
-  text = text.replace('wep',str(individual[34]).replace("[","").replace("]",""))
-  text = text.replace('wrhol',str(individual[35]).replace("[","").replace("]",""))
-  text = text.replace('wrhoh',str(individual[36]).replace("[","").replace("]",""))
+  text = text.replace('wrhoe',str(x37))
+  text = text.replace('wn0',str(x38))
+  text = text.replace('wn1',str(x39))
+  text = text.replace('wn2',str(x40))
+  text = text.replace('wn3',str(x41))
+  text = text.replace('w0',str(x42))
+  text = text.replace('w1',str(x43))
+  text = text.replace('w21',str(x44))
+  text = text.replace('w22',str(x45))
+  text = text.replace('w31',str(x46))
+  text = text.replace('w32',str(x47))
+  text = text.replace('weta',str(x48))
+  text = text.replace('wep',str(x49))
+  text = text.replace('wrhol',str(x50))
+  text = text.replace('wrhoh',str(x51))
   fi.close
 
   with open(file_inp,'w') as f:
@@ -249,7 +386,7 @@ def evalOneMax(individual):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if count > 36000 or count % int(18000*2.718**(-count/18000)+1) == 1:
+    if count > 18000 or count % int(9000*2.718**(-count/9000)+1) == 1:
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
@@ -303,9 +440,9 @@ def evalOneMax(individual):
       error_flag2 = commands.getoutput("grep 'nan' log.lammps")
       error_flag3 = commands.getoutput("grep 'ERROR' log.lammps")
       print error_flag1, error_flag2, error_flag3
-   
+      
     if error_flag1 != "" and error_flag2 == "" and error_flag3 == "":
-
+    
       print "number of atoms: "+str(natom)
 
       # stress = pressure
@@ -339,7 +476,7 @@ def evalOneMax(individual):
       print "PWscf:  "+str(pxxp)+", "+str(pyyp)+", "+str(pzzp)+", "+str(pxyp)+", "+str(pxzp)+", "+str(pyzp)+" [eV/A^3]"
       print "P diff (%): "+str(diffp)
       print "---------------"
-  
+
       # force
       difffx = 0.0
       difffy = 0.0
@@ -369,10 +506,10 @@ def evalOneMax(individual):
       lmpe = commands.getoutput(lammps_get_data)
       if float(lmpe) == 0.0:
         lmpe = "99999999.99999"
-  
+
       pwe = commands.getoutput("awk '{if($1==\"#E\"){print $2}}' config_"+str(t)+"K")
       pwe = float(pwe) * float(natom)
-  
+
       print "lammps: "+str(lmpe)+" [eV]"
 
       print "PWscf:  "+str(pwe)+" [eV]"
@@ -390,66 +527,28 @@ def evalOneMax(individual):
       tdiffea = tdiffea + float(diffea)*float(wt)
       tdiffp  = tdiffp  + float(diffp)*float(wt)
       tdifff  = tdifff  + float(difff)*float(wt)
-
+  
     else:
       tdiffea = 99999999.99999
       tdiffp  = 99999999.99999
       tdifff  = 99999999.99999
-
+  
   if error_flag1 != "" and error_flag2 == "" and error_flag3 == "":
     diffb  = commands.getoutput("cat diff.dat")
   else:
     diffb = 99999999.99999
   print "F boundary, diff: "+str(diffb)
+  diffb  = commands.getoutput("cat diff.dat")
   print "---------------"
-
-  y = float(tdiffea)**2 + 1000*float(diffb)**2 + 0.0000002*abs(tdiffp)**2 + 0.0000010*abs(tdifff)**2
+  
+  y = 0.001/(float(tdiffea)**2 + 1000*float(diffb)**2 + 0.0000002*abs(tdiffp)**2 + 0.0000010*abs(tdifff)**2)
 
   print "Evaluate: ", y
-  #print "Parameters: ", individual
-  print "Parameters: x0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+","+str(individual[30])+","+str(individual[31])+","+str(individual[32])+","+str(individual[33])+","+str(individual[34])+","+str(individual[35])+","+str(individual[36])+" ]"
   print "------------------------"
- 
-  return y,
-#----------------------------------------------------------------------
-def cxTwoPointCopy(ind1, ind2):
-  size = len(ind1)
-  cxpoint1 = random.randint(1, size)
-  cxpoint2 = random.randint(1, size-1)
-  if (cxpoint2 >= cxpoint1):
-    cxpoint2 += 1
-  else:
-    cxpoint1, cxpoint2 = cxpoint2, cxpoint1
 
-  ind1[cxpoint1:cxpoint2], ind2[cxpoint2:cxpoint2] = ind2[cxpoint1:cxpoint2].copy(), ind1[cxpoint1:cxpoint2].copy()
-
-  return ind1, ind2
+  return y
 #----------------------------------------------------------------------
-def mutUniformDbl(individual, min_ind, max_ind, indpb):
-  size = len(individual)
-  for i, min, max in zip(xrange(size), min_ind, max_ind):
-    if (random.random() < indpb):
-      individual[i] = random.uniform(min, max)
-  return indivisual,
-#----------------------------------------------------------------------
-toolbox.register("evaluate", evalOneMax)
-toolbox.register("mate", tools.cxTwoPoint)
-toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
-toolbox.register("select", tools.selTournament, tournsize=3)
-#----------------------------------------------------------------------
-def main():
-  random.seed(64)
-  pop = toolbox.population(n=300)
-  hof = tools.HallOfFame(1, similar=numpy.array_equal)
-  stats = tools.Statistics(lambda ind: ind.fitness.values)
-  stats.register("avg", numpy.mean)
-  stats.register("std", numpy.std)
-  stats.register("min", numpy.min)
-  stats.register("max", numpy.max)
-  algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=20000, stats=stats, halloffame=hof)
-  return pop, stats, hof
-#----------------------------------------------------------------------
-if (__name__ == "__main__"):
-  main()
-#----------------------------------------------------------------------
+optimizer = BayesianOptimization(f=descripter, pbounds=pbounds)
+optimizer.maximize(init_points=3, n_iter=36000, acq="ucb")
+#acq = ucb, ei, poi, (default: ubc)
 

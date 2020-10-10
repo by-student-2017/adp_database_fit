@@ -427,7 +427,7 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 #----------------------------------------------------------------------
 def main():
   random.seed(64)
-  pop = toolbox.population(n=30)
+  pop = toolbox.population(n=300)
   hof = tools.HallOfFame(1, similar=numpy.array_equal)
   stats = tools.Statistics(lambda ind: ind.fitness.values)
   stats.register("avg", numpy.mean)
