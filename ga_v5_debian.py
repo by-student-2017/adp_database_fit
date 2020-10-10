@@ -232,7 +232,7 @@ def evalOneMax(individual):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if count > 18000 or count % int(9000*2.718**(-count/9000)+1) == 1:
+    if (count % 3000) == 1:
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
