@@ -240,7 +240,7 @@ def evalOneMax(individual):
   commands.getoutput("./Zhou04_ADP_1 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
   if diffb == "nan":
-    y = diffb = 999999.99999
+    y = 999999.99999
     return y,
 
   tdiffea = 0.0
