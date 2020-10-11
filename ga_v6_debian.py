@@ -227,7 +227,7 @@ def evalOneMax(individual):
 
   commands.getoutput("./Zhou04_ADP_1 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
-  if diffb == "nan" or abs(float(diffb)) >= 0.1:
+  if diffb == "nan" or abs(float(diffb)) >= 0.5:
     y = 999999.99999
     if count == 1:
       count -= 1
@@ -240,7 +240,7 @@ def evalOneMax(individual):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if (count % 9000 + 1) == 1:
+    if (count % 9000) == 1:
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
