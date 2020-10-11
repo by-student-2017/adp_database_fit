@@ -169,8 +169,8 @@ max_ind = numpy.ones(n_gene) *  1.0
 for i in range(n_gene):
   #min_ind[i] = b1[i][0]
   #max_ind[i] = b1[i][1]
-  min_ind[i] = float(x[i]) - float(x[i])*0.5
-  max_ind[i] = float(x[i]) + float(x[i])*0.5
+  min_ind[i] = float(x[i]) - float(x[i])*0.3
+  max_ind[i] = float(x[i]) + float(x[i])*0.3
   print "search area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
 #----------------------------------------------------------------------
 def create_ind_uniform(min_ind, max_ind):
@@ -239,8 +239,11 @@ def evalOneMax(individual):
 
   commands.getoutput("./Zhou04_ADP_1 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
-  if diffb == "nan":
+  if diffb == "nan" or abs(float(diffb)) >= 0.1:
     y = 999999.99999
+    if count == 1:
+      count -= 1
+    print "skip this potential, because of bad boundary."
     return y,
 
   tdiffea = 0.0
@@ -250,6 +253,7 @@ def evalOneMax(individual):
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
     if (count % 9000) == 1:
+      print "Lammps + PWscf calculation"
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
