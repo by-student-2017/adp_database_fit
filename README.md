@@ -102,7 +102,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 2. pip install -U deap --user
 3. cp ADP.input_temp ADP.input
 4. sed -i 's/Xx/Cr/g' ADP.input
-5. python ga_v5_debian.py
+5. python ga_v6_debian.py
 
 
 ## fit parameters by baysian method
@@ -110,7 +110,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 2. pip install bayesian-optimization==1.1.0
 3. cp ADP.input_temp ADP.input
 4. sed -i 's/Xx/Cr/g' ADP.input
-5. python baysian_v5_debian.py
+5. python baysian_v6_debian.py
 
 
 ## plot F, rho, rphi, u, and w.
@@ -190,7 +190,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cr/g' ADP.input
-	!python2 ga_v5_gc.py
+	!python2 ga_v6_gc.py
 
 
 ## fit parameters by baysian method
@@ -201,7 +201,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cr/g' ADP.input
-	!python2 baysian_v5_gc.py
+	!python2 baysian_v6_gc.py
 
 
 ## plot F, rho, rphi, u, and w.
