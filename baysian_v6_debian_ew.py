@@ -36,6 +36,9 @@ commands.getoutput("chmod +x ./data2cfg/lmp_data2cfg")
 commands.getoutput("mkdir cfg")
 commands.getoutput("mkdir work")
 commands.getoutput("echo -n > energy.dat")
+commands.getoutput("rm -f -r candidate")
+commands.getoutput("mkdir candidate")
+commands.getoutput("echo -n > candidate.dat")
 
 natom = 5000
 fxl = numpy.ones(int(natom)+1)
@@ -341,9 +344,10 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
 
   commands.getoutput("./Zhou04_ADP_1 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
-  if diffb == "nan":
-    y = diffb = 999999.99999
-    return y,
+  if diffb == "nan" or abs(float(diffb)) >= 0.1:
+    y = 0.01/999999.99999
+    print "skip this potential, because of bad boundary."
+    return y
 
   tdiffea = 0.0
   tdiffp  = 0.0
@@ -507,6 +511,17 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   print "---------------"
   
   y = 0.001/(float(tdiffea)**2 + 1000*float(diffb)**2 + 0.0000002*abs(tdiffp)**2 + 0.0000010*abs(tdifff)**2)
+
+  if y >= 0.001:
+    commands.getoutput("cp ADP_code ./candidate_"+str(count))
+    commands.getoutput("echo '---------------' >> candidate.dat")
+    commands.getoutput("echo 'No. "+str(count)+"' >> candidate.dat")
+    commands.getoutput("echo 'Evaluate: "+str(y)+"' >> candidate.dat")
+    commands.getoutput("echo 'diff E = "+str(tdiffea)+" [eV/atom]' >> candidate.dat")
+    commands.getoutput("echo 'diff P = "+str(tdiffp)+"' >> candidate.dat")
+    commands.getoutput("echo 'diff F = "+str(tdifff)+"' >> candidate.dat")
+    commands.getoutput("echo 'diff Bound ="+str(diffb)+"' >> candidate.dat")
+    commands.getoutput("echo '---------------' >> candidate.dat")
 
   print "Evaluate: ", y
   print "------------------------"
