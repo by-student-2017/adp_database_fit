@@ -228,9 +228,9 @@ c w boundary
          endif
 21    continue
 c
-      diff = diff + (embb11 - embb12) + (embb21 - embb22)
-     *            + (embb11u - embb12u) + (embb21u - embb22u)
-     *            + (embb11w - embb12w) + (embb21w - embb22w)
+      diff = diff + abs(embb11 - embb12) + abs(embb21 - embb22)
+     *            + abs(embb11u - embb12u) + abs(embb21u - embb22u)
+     *            + abs(embb11w - embb12w) + abs(embb21w - embb22w)
 6     continue
       open(unit=50,file='diff.dat',form='FORMATTED',status='OLD')
       write(50,*) diff
