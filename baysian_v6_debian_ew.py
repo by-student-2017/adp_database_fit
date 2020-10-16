@@ -344,7 +344,7 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
 
   commands.getoutput("./Zhou04_ADP_1 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
-  if diffb == "nan" or abs(float(diffb)) >= 0.02/(1+float(count)/2000):
+  if diffb == "nan" or abs(float(diffb)) >= 0.1/(1+float(count)/2000):
     y = 0.01/999999.99999
     print "skip this potential, because of bad boundary."
     return y

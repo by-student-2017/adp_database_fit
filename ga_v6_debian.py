@@ -227,7 +227,7 @@ def evalOneMax(individual):
 
   commands.getoutput("./Zhou04_ADP_1 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
-  if diffb == "nan" or abs(float(diffb)) >= 0.03/(1+float(count)/900):
+  if diffb == "nan" or abs(float(diffb)) >= 0.15/(1+float(count)/900):
     y = 999999.99999
     if count == 1:
       count -= 1
