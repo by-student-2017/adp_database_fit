@@ -56,8 +56,8 @@ adp_database_fit
 4. git clone https://github.com/by-student-2017/adp_database_fit.git
 5. cd ~/adp_database_fit
 6. gfortran -o Zhou04_ADP_1 Zhou04_create_adp.f
-  gfortran -o Zhou04_ADP_EW Zhou04_create_adp_ew.f
-7. gfortran -o plot_adp plot_adp.f
+7. gfortran -o Zhou04_ADP_EW Zhou04_create_adp_ew.f
+8. gfortran -o plot_adp plot_adp.f
 
 
 ## fit parameters by Nelder-Mead (NM) method
@@ -180,6 +180,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cr/g' ADP.input
 	!python2 nm_v5_gc.py
+	!cat ADP_code
 
 
 ## fit parameters by genetic algorithm
@@ -191,6 +192,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cr/g' ADP.input
 	!python2 ga_v6_gc.py
+	!cat ADP_code
 
 
 ## fit parameters by baysian method
@@ -202,6 +204,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cr/g' ADP.input
 	!python2 baysian_v6_gc.py
+	!cat ADP_code
 
 
 ## plot F, rho, rphi, u, and w.
