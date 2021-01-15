@@ -1,21 +1,21 @@
-import random
-from deap import creator, base, tools, algorithms
+from scipy import optimize
 import numpy
 import numpy as np
 import commands
 import sys
 #----------------------------------------------------------------------
-file_tmp = 'ADP_code.tmp'
-file_inp = 'ADP_code'
+file_tmp = 'ADP_code_v11.tmp'
+file_tmp_ew = 'ADP_code_ew_v11.tmp'
+file_inp = 'ADP_code_v11'
 
 cif2cell_adress = "cif2cell"
 
 commands.getoutput("setenv OMP_NUM_THREADS 1")
 num_core = commands.getoutput("grep 'core id' /proc/cpuinfo | sort -u | wc -l")
-lammps_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root lmp"
-pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
-#lammps_adress = "mpirun -np "+str(num_core)+" lmp"
-#pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
+#lammps_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root lmp"
+#pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
+lammps_adress = "mpirun -np "+str(num_core)+" lmp"
+pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
 #lammps_adress = "mpirun -np 2 lmp"
 #pwscf_adress = "mpirun -np 2 pw.x"
 
@@ -23,9 +23,9 @@ satom = commands.getoutput("grep \"atomtype\" ADP.input | sed -e \"s/.*=//\" -e 
 
 commands.getoutput("chmod +x ./cfg2vasp/cfg2vasp")
 commands.getoutput("chmod +x pwscf2force")
+commands.getoutput("cp in.lmp_temp_v2 in.lmp_temp")
 commands.getoutput("chmod +x setinp")
 commands.getoutput("./setinp")
-commands.getoutput("chmod +x ./data2cfg/lmp_data2cfg")
 commands.getoutput("mkdir cfg")
 commands.getoutput("mkdir work")
 commands.getoutput("echo -n > energy.dat")
@@ -63,74 +63,88 @@ print "temperature: ",temp
 print "structure  : ",stru
 print "weight     : ",weig
 #----------------------------------------------------------------------
-print "read parameters from ADP_code.init"
-nline = commands.getoutput("grep -n "+str(satom)+" ADP_code.init | head -1 | sed -e \"s/:.*//g\"")
+print "read parameters from ADP_code_v11.init"
+nline = commands.getoutput("grep -n "+str(satom)+" ADP_code_v11.init | head -1 | sed -e \"s/:.*//g\"")
 print "read line: "+nline
-check_satom = commands.getoutput("awk '{if(NR=="+str(nline)+"+0){print $1}}' ADP_code.init | head -1")
+check_satom = commands.getoutput("awk '{if(NR=="+str(nline)+"+0){print $1}}' ADP_code_v11.init | head -1")
 print "fit element: "+check_satom
 # fitting parameters
-x0  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+1){print $1}}' ADP_code.init | head -1"))
-x1  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+2){print $1}}' ADP_code.init | head -1"))
-x2  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+3){print $1}}' ADP_code.init | head -1"))
-x3  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+4){print $1}}' ADP_code.init | head -1"))
-x4  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+5){print $1}}' ADP_code.init | head -1"))
-x5  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+6){print $1}}' ADP_code.init | head -1"))
-x6  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+7){print $1}}' ADP_code.init | head -1"))
-x7  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+8){print $1}}' ADP_code.init | head -1"))
-x8  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+9){print $1}}' ADP_code.init | head -1"))
-x9  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+10){print $1}}' ADP_code.init | head -1"))
-x10 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+11){print $1}}' ADP_code.init | head -1"))
-x11 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+12){print $1}}' ADP_code.init | head -1"))
-x12 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+13){print $1}}' ADP_code.init | head -1"))
-x13 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+14){print $1}}' ADP_code.init | head -1"))
-x14 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+15){print $1}}' ADP_code.init | head -1"))
-x15 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+16){print $1}}' ADP_code.init | head -1"))
-x16 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+17){print $1}}' ADP_code.init | head -1"))
-x17 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+18){print $1}}' ADP_code.init | head -1"))
-x18 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+19){print $1}}' ADP_code.init | head -1"))
-x19 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+20){print $1}}' ADP_code.init | head -1"))
-x20 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+23){print $1}}' ADP_code.init | head -1"))
-x21 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+26){print $1}}' ADP_code.init | head -1"))
+x0  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+1){print $1}}' ADP_code_v11.init | head -1"))
+x1  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+2){print $1}}' ADP_code_v11.init | head -1"))
+x2  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+3){print $1}}' ADP_code_v11.init | head -1"))
+x3  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+4){print $1}}' ADP_code_v11.init | head -1"))
+x4  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+5){print $1}}' ADP_code_v11.init | head -1"))
+x5  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+6){print $1}}' ADP_code_v11.init | head -1"))
+x6  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+7){print $1}}' ADP_code_v11.init | head -1"))
+x7  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+8){print $1}}' ADP_code_v11.init | head -1"))
+x8  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+9){print $1}}' ADP_code_v11.init | head -1"))
+x9  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+10){print $1}}' ADP_code_v11.init | head -1"))
+x10 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+11){print $1}}' ADP_code_v11.init | head -1"))
+x11 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+12){print $1}}' ADP_code_v11.init | head -1"))
+x12 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+13){print $1}}' ADP_code_v11.init | head -1"))
+x13 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+14){print $1}}' ADP_code_v11.init | head -1"))
+x14 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+15){print $1}}' ADP_code_v11.init | head -1"))
+x15 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+16){print $1}}' ADP_code_v11.init | head -1"))
+x16 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+17){print $1}}' ADP_code_v11.init | head -1"))
+x17 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+18){print $1}}' ADP_code_v11.init | head -1"))
+x18 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+19){print $1}}' ADP_code_v11.init | head -1"))
+x19 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+20){print $1}}' ADP_code_v11.init | head -1"))
+x20 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+21){print $1}}' ADP_code_v11.init | head -1"))
+x21 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+22){print $1}}' ADP_code_v11.init | head -1"))
+x22 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+23){print $1}}' ADP_code_v11.init | head -1"))
+x23 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+24){print $1}}' ADP_code_v11.init | head -1"))
+x24 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+25){print $1}}' ADP_code_v11.init | head -1"))
+x25 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+26){print $1}}' ADP_code_v11.init | head -1"))
+x26 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+31){print $1}}' ADP_code_v11.init | head -1"))
 # u
-x22 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+28){print $1}}' ADP_code.init | head -1"))
-x23 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+29){print $1}}' ADP_code.init | head -1"))
-x24 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+30){print $1}}' ADP_code.init | head -1"))
-x25 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+31){print $1}}' ADP_code.init | head -1"))
-x26 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+32){print $1}}' ADP_code.init | head -1"))
-x27 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+33){print $1}}' ADP_code.init | head -1"))
-x28 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+34){print $1}}' ADP_code.init | head -1"))
-x29 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+35){print $1}}' ADP_code.init | head -1"))
-x30 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+36){print $1}}' ADP_code.init | head -1"))
-x31 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+37){print $1}}' ADP_code.init | head -1"))
-x32 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+38){print $1}}' ADP_code.init | head -1"))
-x33 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+39){print $1}}' ADP_code.init | head -1"))
-x34 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+40){print $1}}' ADP_code.init | head -1"))
-x35 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+41){print $1}}' ADP_code.init | head -1"))
-x36 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+42){print $1}}' ADP_code.init | head -1"))
+x27 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+33){print $1}}' ADP_code_v11.init | head -1"))
+x28 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+34){print $1}}' ADP_code_v11.init | head -1"))
+x29 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+35){print $1}}' ADP_code_v11.init | head -1"))
+x30 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+36){print $1}}' ADP_code_v11.init | head -1"))
+x31 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+37){print $1}}' ADP_code_v11.init | head -1"))
+x32 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+38){print $1}}' ADP_code_v11.init | head -1"))
+x33 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+39){print $1}}' ADP_code_v11.init | head -1"))
+x34 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+40){print $1}}' ADP_code_v11.init | head -1"))
+x35 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+41){print $1}}' ADP_code_v11.init | head -1"))
+x36 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+42){print $1}}' ADP_code_v11.init | head -1"))
+x37 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+43){print $1}}' ADP_code_v11.init | head -1"))
+x38 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+44){print $1}}' ADP_code_v11.init | head -1"))
+x39 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+45){print $1}}' ADP_code_v11.init | head -1"))
+x40 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+46){print $1}}' ADP_code_v11.init | head -1"))
+x41 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+47){print $1}}' ADP_code_v11.init | head -1"))
+x42 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+48){print $1}}' ADP_code_v11.init | head -1"))
+x43 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+49){print $1}}' ADP_code_v11.init | head -1"))
+x44 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+50){print $1}}' ADP_code_v11.init | head -1"))
+x45 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+51){print $1}}' ADP_code_v11.init | head -1"))
 # w
-x37 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+43){print $1}}' ADP_code.init | head -1"))
-x38 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+44){print $1}}' ADP_code.init | head -1"))
-x39 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+45){print $1}}' ADP_code.init | head -1"))
-x40 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+46){print $1}}' ADP_code.init | head -1"))
-x41 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+47){print $1}}' ADP_code.init | head -1"))
-x42 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+48){print $1}}' ADP_code.init | head -1"))
-x43 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+49){print $1}}' ADP_code.init | head -1"))
-x44 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+50){print $1}}' ADP_code.init | head -1"))
-x45 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+51){print $1}}' ADP_code.init | head -1"))
-x46 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+52){print $1}}' ADP_code.init | head -1"))
-x47 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+53){print $1}}' ADP_code.init | head -1"))
-x48 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+54){print $1}}' ADP_code.init | head -1"))
-x49 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+55){print $1}}' ADP_code.init | head -1"))
-x50 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+56){print $1}}' ADP_code.init | head -1"))
-x51 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+57){print $1}}' ADP_code.init | head -1"))
-x = [x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,
-      x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,
-      x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51]
-print "initial parameters: ",x
+x46 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+52){print $1}}' ADP_code_v11.init | head -1"))
+x47 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+53){print $1}}' ADP_code_v11.init | head -1"))
+x48 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+54){print $1}}' ADP_code_v11.init | head -1"))
+x49 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+55){print $1}}' ADP_code_v11.init | head -1"))
+x50 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+56){print $1}}' ADP_code_v11.init | head -1"))
+x51 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+57){print $1}}' ADP_code_v11.init | head -1"))
+x52 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+58){print $1}}' ADP_code_v11.init | head -1"))
+x53 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+59){print $1}}' ADP_code_v11.init | head -1"))
+x54 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+60){print $1}}' ADP_code_v11.init | head -1"))
+x55 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+61){print $1}}' ADP_code_v11.init | head -1"))
+x56 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+62){print $1}}' ADP_code_v11.init | head -1"))
+x57 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+63){print $1}}' ADP_code_v11.init | head -1"))
+x58 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+64){print $1}}' ADP_code_v11.init | head -1"))
+x59 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+65){print $1}}' ADP_code_v11.init | head -1"))
+x60 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+66){print $1}}' ADP_code_v11.init | head -1"))
+x61 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+67){print $1}}' ADP_code_v11.init | head -1"))
+x62 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+68){print $1}}' ADP_code_v11.init | head -1"))
+x63 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+69){print $1}}' ADP_code_v11.init | head -1"))
+x64 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+70){print $1}}' ADP_code_v11.init | head -1"))
+
+x = [x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,
+      x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,
+      x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64]
+print "initial parameters: ", x
 
 count = 0
 #----------------------------------------------------------------------
-n_gene = 52 # number of parameters
+n_gene = 65 # number of parameters
 min_ind = numpy.ones(n_gene) * -1.0
 max_ind = numpy.ones(n_gene) *  1.0
 min_max_ind = []
@@ -150,67 +164,80 @@ def example_fitness( individual ):
   count += 1
   print count
 
-  fi = open(file_tmp,'r')
+  fi = open(file_tmp_ew,'r')
   text = fi.read().replace('re',str(individual[0]).replace("[","").replace("]",""))
   text = text.replace('fe',str(individual[1]).replace("[","").replace("]",""))
-  text = text.replace('Frhoe1',str(individual[2]).replace("[","").replace("]",""))
-  text = text.replace('Frhoe2',str(individual[3]).replace("[","").replace("]",""))
+  text = text.replace('Frhoe',str(individual[2]).replace("[","").replace("]",""))
+  text = text.replace('Frhos',str(individual[3]).replace("[","").replace("]",""))
   text = text.replace('alpha',str(individual[4]).replace("[","").replace("]",""))
   text = text.replace('beta',str(individual[5]).replace("[","").replace("]",""))
   text = text.replace('Ap',str(individual[6]).replace("[","").replace("]",""))
   text = text.replace('Bp',str(individual[7]).replace("[","").replace("]",""))
-  text = text.replace('kappa',str(individual[8]).replace("[","").replace("]",""))
+  text = text.replace('cai',str(individual[8]).replace("[","").replace("]",""))
   text = text.replace('lambda',str(individual[9]).replace("[","").replace("]",""))
-  text = text.replace('Fn0',str(individual[10]).replace("[","").replace("]",""))
-  text = text.replace('Fn1',str(individual[11]).replace("[","").replace("]",""))
-  text = text.replace('Fn2',str(individual[12]).replace("[","").replace("]",""))
-  text = text.replace('Fn3',str(individual[13]).replace("[","").replace("]",""))
-  text = text.replace('F0',str(individual[14]).replace("[","").replace("]",""))
-  text = text.replace('F1',str(individual[15]).replace("[","").replace("]",""))
-  text = text.replace('F2',str(individual[16]).replace("[","").replace("]",""))
-  text = text.replace('F3',str(individual[17]).replace("[","").replace("]",""))
-  text = text.replace('Feta',str(individual[18]).replace("[","").replace("]",""))
-  text = text.replace('Fep',str(individual[19]).replace("[","").replace("]",""))
-  text = text.replace('F4',str(individual[20]).replace("[","").replace("]",""))
-  text = text.replace('Frhol',str(individual[21]).replace("[","").replace("]",""))
+  text = text.replace('Fi0',str(individual[10]).replace("[","").replace("]",""))
+  text = text.replace('Fi1',str(individual[11]).replace("[","").replace("]",""))
+  text = text.replace('Fi2',str(individual[12]).replace("[","").replace("]",""))
+  text = text.replace('Fi3',str(individual[13]).replace("[","").replace("]",""))
+  text = text.replace('Fi4',str(individual[14]).replace("[","").replace("]",""))
+  text = text.replace('Fi5',str(individual[15]).replace("[","").replace("]",""))
+  text = text.replace('Fi6',str(individual[16]).replace("[","").replace("]",""))
+  text = text.replace('Fm2',str(individual[17]).replace("[","").replace("]",""))
+  text = text.replace('Fm3',str(individual[18]).replace("[","").replace("]",""))
+  text = text.replace('Fm4',str(individual[19]).replace("[","").replace("]",""))
+  text = text.replace('Fm5',str(individual[20]).replace("[","").replace("]",""))
+  text = text.replace('Fm6',str(individual[21]).replace("[","").replace("]",""))
+  text = text.replace('Fn0',str(individual[22]).replace("[","").replace("]",""))
+  text = text.replace('Fn1',str(individual[23]).replace("[","").replace("]",""))
+  text = text.replace('Fn2',str(individual[24]).replace("[","").replace("]",""))
+  text = text.replace('Fn3',str(individual[25]).replace("[","").replace("]",""))
+  text = text.replace('Frhol',str(individual[26]).replace("[","").replace("]",""))
   # u
-  text = text.replace('urhoe',str(individual[22]).replace("[","").replace("]",""))
-  text = text.replace('un0',str(individual[23]).replace("[","").replace("]",""))
-  text = text.replace('un1',str(individual[24]).replace("[","").replace("]",""))
-  text = text.replace('un2',str(individual[25]).replace("[","").replace("]",""))
-  text = text.replace('un3',str(individual[26]).replace("[","").replace("]",""))
-  text = text.replace('u0',str(individual[27]).replace("[","").replace("]",""))
-  text = text.replace('u1',str(individual[28]).replace("[","").replace("]",""))
-  text = text.replace('u21',str(individual[29]).replace("[","").replace("]",""))
-  text = text.replace('u22',str(individual[30]).replace("[","").replace("]",""))
-  text = text.replace('u31',str(individual[31]).replace("[","").replace("]",""))
-  text = text.replace('u32',str(individual[32]).replace("[","").replace("]",""))
-  text = text.replace('ueta',str(individual[33]).replace("[","").replace("]",""))
-  text = text.replace('uep',str(individual[34]).replace("[","").replace("]",""))
-  text = text.replace('urhol',str(individual[35]).replace("[","").replace("]",""))
-  text = text.replace('urhoh',str(individual[36]).replace("[","").replace("]",""))
+  text = text.replace('urhoe',str(individual[27]).replace("[","").replace("]",""))
+  text = text.replace('ui0',str(individual[28]).replace("[","").replace("]",""))
+  text = text.replace('ui1',str(individual[29]).replace("[","").replace("]",""))
+  text = text.replace('ui2',str(individual[30]).replace("[","").replace("]",""))
+  text = text.replace('ui3',str(individual[31]).replace("[","").replace("]",""))
+  text = text.replace('ui4',str(individual[32]).replace("[","").replace("]",""))
+  text = text.replace('ui5',str(individual[33]).replace("[","").replace("]",""))
+  text = text.replace('ui6',str(individual[34]).replace("[","").replace("]",""))
+  text = text.replace('um2',str(individual[35]).replace("[","").replace("]",""))
+  text = text.replace('um3',str(individual[36]).replace("[","").replace("]",""))
+  text = text.replace('um4',str(individual[37]).replace("[","").replace("]",""))
+  text = text.replace('um5',str(individual[38]).replace("[","").replace("]",""))
+  text = text.replace('um6',str(individual[39]).replace("[","").replace("]",""))
+  text = text.replace('un0',str(individual[40]).replace("[","").replace("]",""))
+  text = text.replace('un1',str(individual[41]).replace("[","").replace("]",""))
+  text = text.replace('un2',str(individual[42]).replace("[","").replace("]",""))
+  text = text.replace('un3',str(individual[43]).replace("[","").replace("]",""))
+  text = text.replace('urhol',str(individual[44]).replace("[","").replace("]",""))
+  text = text.replace('urhoh',str(individual[45]).replace("[","").replace("]",""))
   # w
-  text = text.replace('wrhoe',str(individual[37]).replace("[","").replace("]",""))
-  text = text.replace('wn0',str(individual[38]).replace("[","").replace("]",""))
-  text = text.replace('wn1',str(individual[39]).replace("[","").replace("]",""))
-  text = text.replace('wn2',str(individual[40]).replace("[","").replace("]",""))
-  text = text.replace('wn3',str(individual[41]).replace("[","").replace("]",""))
-  text = text.replace('w0',str(individual[42]).replace("[","").replace("]",""))
-  text = text.replace('w1',str(individual[43]).replace("[","").replace("]",""))
-  text = text.replace('w21',str(individual[44]).replace("[","").replace("]",""))
-  text = text.replace('w22',str(individual[45]).replace("[","").replace("]",""))
-  text = text.replace('w31',str(individual[46]).replace("[","").replace("]",""))
-  text = text.replace('w32',str(individual[47]).replace("[","").replace("]",""))
-  text = text.replace('weta',str(individual[48]).replace("[","").replace("]",""))
-  text = text.replace('wep',str(individual[49]).replace("[","").replace("]",""))
-  text = text.replace('wrhol',str(individual[50]).replace("[","").replace("]",""))
-  text = text.replace('wrhoh',str(individual[51]).replace("[","").replace("]",""))
+  text = text.replace('wrhoe',str(x46).replace("[","").replace("]",""))
+  text = text.replace('wi0',str(x47).replace("[","").replace("]",""))
+  text = text.replace('wi1',str(x48).replace("[","").replace("]",""))
+  text = text.replace('wi2',str(x49).replace("[","").replace("]",""))
+  text = text.replace('wi3',str(x50).replace("[","").replace("]",""))
+  text = text.replace('wi4',str(x51).replace("[","").replace("]",""))
+  text = text.replace('wi5',str(x52).replace("[","").replace("]",""))
+  text = text.replace('wi6',str(x53).replace("[","").replace("]",""))
+  text = text.replace('wm2',str(x54).replace("[","").replace("]",""))
+  text = text.replace('wm3',str(x55).replace("[","").replace("]",""))
+  text = text.replace('wm4',str(x56).replace("[","").replace("]",""))
+  text = text.replace('wm5',str(x57).replace("[","").replace("]",""))
+  text = text.replace('wm6',str(x58).replace("[","").replace("]",""))
+  text = text.replace('wn0',str(x59).replace("[","").replace("]",""))
+  text = text.replace('wn1',str(x60).replace("[","").replace("]",""))
+  text = text.replace('wn2',str(x61).replace("[","").replace("]",""))
+  text = text.replace('wn3',str(x62).replace("[","").replace("]",""))
+  text = text.replace('wrhol',str(x63).replace("[","").replace("]",""))
+  text = text.replace('wrhoh',str(x64).replace("[","").replace("]",""))
   fi.close
 
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./Zhou04_ADP_1 < ADP.input")
+  commands.getoutput("./Zhou04_ADP_EW_v11 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
   if diffb == "nan" or abs(float(diffb)) >= 0.15/(1+float(count)/900):
     y = 99999.99999
@@ -237,7 +264,7 @@ def example_fitness( individual ):
       error_flag3 = commands.getoutput("grep 'ERROR' log.lammps")
       print error_flag1, error_flag2, error_flag3
       if error_flag1 != "" and error_flag2 == "" and error_flag3 == "":
-        commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
+        commands.getoutput("cp ./cfg/run.0.cfg run.50.cfg")
         commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
         commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
         commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
@@ -316,7 +343,7 @@ def example_fitness( individual ):
       print "PWscf:  "+str(pxxp)+", "+str(pyyp)+", "+str(pzzp)+", "+str(pxyp)+", "+str(pxzp)+", "+str(pyzp)+" [eV/A^3]"
       print "P diff (%): "+str(diffp)
       print "---------------"
-  
+
       # force
       difffx = 0.0
       difffy = 0.0
@@ -345,12 +372,10 @@ def example_fitness( individual ):
 
       lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%-20.10f\",$4}'"
       lmpe = commands.getoutput(lammps_get_data)
-      if float(lmpe) == 0.0:
-        lmpe = "99999.99999"
-  
+
       pwe = commands.getoutput("awk '{if($1==\"#E\"){print $2}}' config_"+str(t)+"K")
       pwe = float(pwe) * float(natom)
-  
+
       print "lammps: "+str(lmpe)+" [eV]"
 
       print "PWscf:  "+str(pwe)+" [eV]"
@@ -384,10 +409,10 @@ def example_fitness( individual ):
   y = float(tdiffea)**2 + 1000*float(diffb)**2 + 0.0000002*abs(tdiffp)**2 + 0.0000010*abs(tdifff)**2
 
   print "Evaluate: ", y
-  #print "Parameters: ", individual
-  print "Parameters: x0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+","+str(individual[30])+","+str(individual[31])+","+str(individual[32])+","+str(individual[33])+","+str(individual[34])+","+str(individual[35])+","+str(individual[36])+","+str(individual[37])+","+str(individual[38])+","+str(individual[39])+","+str(individual[40])+","+str(individual[41])+","+str(individual[42])+","+str(individual[43])+","+str(individual[44])+","+str(individual[45])+","+str(individual[46])+","+str(individual[47])+","+str(individual[48])+","+str(individual[49])+","+str(individual[50])+","+str(individual[51])+" ]"
+  #print "Parameters: ", x
+  print "Parameters: z0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+","+str(individual[30])+","+str(individual[31])+","+str(individual[32])+","+str(individual[33])+","+str(individual[34])+","+str(individual[35])+","+str(individual[36])+","+str(individual[37])+","+str(individual[38])+","+str(individual[39])+","+str(individual[40])+","+str(individual[41])+","+str(individual[42])+","+str(individual[43])+","+str(individual[44])+","+str(individual[45])+","+str(individual[46])+","+str(individual[47])+","+str(individual[48])+","+str(individual[49])+","+str(individual[50])+","+str(individual[51])+","+str(individual[52])+","+str(individual[53])+","+str(individual[54])+","+str(individual[55])+","+str(individual[56])+","+str(individual[57])+","+str(individual[58])+","+str(individual[59])+","+str(individual[60])+","+str(individual[61])+","+str(individual[62])+","+str(individual[63])+","+str(individual[64])+" ]"
   print "------------------------"
- 
+
   return y
 #----------------------------------------------------------------------
 ##PySwarm
