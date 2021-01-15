@@ -113,6 +113,15 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 5. python baysian_v6_debian.py
 
 
+## fit parameters by Particle Swarm Optimization (PSO)
+1. cd ~/adp_database_fit
+2. pip2 install pyswarm==0.6
+3. cp ADP.input_temp ADP.input
+4. sed -i 's/Xx/Cr/g' ADP.input
+5. gedit struct.dat
+6. python pyswarm_v6_debian.py
+
+
 ## plot F, rho, rphi, u, and w.
 1. gnuplot png_adp.gp
 
@@ -205,6 +214,18 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!sed -i 's/Xx/Cr/g' ADP.input
 	!python2 baysian_v6_gc.py
 	!cat ADP_code
+
+
+## fit parameters by Particle Swarm Optimization (PSO)
+	!pip2 install pyswarm==0.6
+	%cd /content/adp_database_fit
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!cp ADP.input_temp ADP.input
+	!sed -i 's/Xx/Cr/g' ADP.input
+	!python2 pyswarm_v6_gc.py
+	!cat EAM_code
 
 
 ## fit parameters by NM method
