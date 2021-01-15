@@ -3,6 +3,13 @@ import numpy
 import numpy as np
 import commands
 import sys
+
+print "Attention"
+print "this code need Zhou04_ADP_EW"
+print "  In the first time, need to command 'gfortran Zhou04_create_adp_v11.f -o Zhou04_ADP_v11'"
+print "this code does not recommend element < Al"
+print "all u parameters = 0.0"
+print " "
 #----------------------------------------------------------------------
 file_tmp = 'ADP_code_v11.tmp'
 file_tmp_ew = 'ADP_code_ew_v11.tmp'
@@ -137,8 +144,31 @@ x62 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+68){print $1}}' ADP_
 x63 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+69){print $1}}' ADP_code_v11.init | head -1"))
 x64 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+70){print $1}}' ADP_code_v11.init | head -1"))
 
+# u
+fi0 = open(file_tmp,'r')
+text0 = fi0.read().replace('urhoe',str(x27).replace("[","").replace("]",""))
+text0 = text0.replace('ui0',str(x28).replace("[","").replace("]",""))
+text0 = text0.replace('ui1',str(x29).replace("[","").replace("]",""))
+text0 = text0.replace('ui2',str(x30).replace("[","").replace("]",""))
+text0 = text0.replace('ui3',str(x31).replace("[","").replace("]",""))
+text0 = text0.replace('ui4',str(x32).replace("[","").replace("]",""))
+text0 = text0.replace('ui5',str(x33).replace("[","").replace("]",""))
+text0 = text0.replace('ui6',str(x34).replace("[","").replace("]",""))
+text0 = text0.replace('um2',str(x35).replace("[","").replace("]",""))
+text0 = text0.replace('um3',str(x36).replace("[","").replace("]",""))
+text0 = text0.replace('um4',str(x37).replace("[","").replace("]",""))
+text0 = text0.replace('um5',str(x38).replace("[","").replace("]",""))
+text0 = text0.replace('um6',str(x39).replace("[","").replace("]",""))
+text0 = text0.replace('un0',str(x40).replace("[","").replace("]",""))
+text0 = text0.replace('un1',str(x41).replace("[","").replace("]",""))
+text0 = text0.replace('un2',str(x42).replace("[","").replace("]",""))
+text0 = text0.replace('un3',str(x43).replace("[","").replace("]",""))
+text0 = text0.replace('urhol',str(x44).replace("[","").replace("]",""))
+text0 = text0.replace('urhoh',str(x45).replace("[","").replace("]",""))
+with open(file_tmp_ew,'w') as f:
+  print >> f, text0
+
 x = [x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,
-      x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,
       x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64]
 print "initial parameters: ", x
 
@@ -192,59 +222,39 @@ def example_fitness( individual ):
   text = text.replace('Fn2',str(individual[24]).replace("[","").replace("]",""))
   text = text.replace('Fn3',str(individual[25]).replace("[","").replace("]",""))
   text = text.replace('Frhol',str(individual[26]).replace("[","").replace("]",""))
-  # u
-  text = text.replace('urhoe',str(individual[27]).replace("[","").replace("]",""))
-  text = text.replace('ui0',str(individual[28]).replace("[","").replace("]",""))
-  text = text.replace('ui1',str(individual[29]).replace("[","").replace("]",""))
-  text = text.replace('ui2',str(individual[30]).replace("[","").replace("]",""))
-  text = text.replace('ui3',str(individual[31]).replace("[","").replace("]",""))
-  text = text.replace('ui4',str(individual[32]).replace("[","").replace("]",""))
-  text = text.replace('ui5',str(individual[33]).replace("[","").replace("]",""))
-  text = text.replace('ui6',str(individual[34]).replace("[","").replace("]",""))
-  text = text.replace('um2',str(individual[35]).replace("[","").replace("]",""))
-  text = text.replace('um3',str(individual[36]).replace("[","").replace("]",""))
-  text = text.replace('um4',str(individual[37]).replace("[","").replace("]",""))
-  text = text.replace('um5',str(individual[38]).replace("[","").replace("]",""))
-  text = text.replace('um6',str(individual[39]).replace("[","").replace("]",""))
-  text = text.replace('un0',str(individual[40]).replace("[","").replace("]",""))
-  text = text.replace('un1',str(individual[41]).replace("[","").replace("]",""))
-  text = text.replace('un2',str(individual[42]).replace("[","").replace("]",""))
-  text = text.replace('un3',str(individual[43]).replace("[","").replace("]",""))
-  text = text.replace('urhol',str(individual[44]).replace("[","").replace("]",""))
-  text = text.replace('urhoh',str(individual[45]).replace("[","").replace("]",""))
   # w
-  text = text.replace('wrhoe',str(x46).replace("[","").replace("]",""))
-  text = text.replace('wi0',str(x47).replace("[","").replace("]",""))
-  text = text.replace('wi1',str(x48).replace("[","").replace("]",""))
-  text = text.replace('wi2',str(x49).replace("[","").replace("]",""))
-  text = text.replace('wi3',str(x50).replace("[","").replace("]",""))
-  text = text.replace('wi4',str(x51).replace("[","").replace("]",""))
-  text = text.replace('wi5',str(x52).replace("[","").replace("]",""))
-  text = text.replace('wi6',str(x53).replace("[","").replace("]",""))
-  text = text.replace('wm2',str(x54).replace("[","").replace("]",""))
-  text = text.replace('wm3',str(x55).replace("[","").replace("]",""))
-  text = text.replace('wm4',str(x56).replace("[","").replace("]",""))
-  text = text.replace('wm5',str(x57).replace("[","").replace("]",""))
-  text = text.replace('wm6',str(x58).replace("[","").replace("]",""))
-  text = text.replace('wn0',str(x59).replace("[","").replace("]",""))
-  text = text.replace('wn1',str(x60).replace("[","").replace("]",""))
-  text = text.replace('wn2',str(x61).replace("[","").replace("]",""))
-  text = text.replace('wn3',str(x62).replace("[","").replace("]",""))
-  text = text.replace('wrhol',str(x63).replace("[","").replace("]",""))
-  text = text.replace('wrhoh',str(x64).replace("[","").replace("]",""))
+  text = text.replace('wrhoe',str(individual[27]).replace("[","").replace("]",""))
+  text = text.replace('wi0',str(individual[28]).replace("[","").replace("]",""))
+  text = text.replace('wi1',str(individual[29]).replace("[","").replace("]",""))
+  text = text.replace('wi2',str(individual[30]).replace("[","").replace("]",""))
+  text = text.replace('wi3',str(individual[31]).replace("[","").replace("]",""))
+  text = text.replace('wi4',str(individual[32]).replace("[","").replace("]",""))
+  text = text.replace('wi5',str(individual[33]).replace("[","").replace("]",""))
+  text = text.replace('wi6',str(individual[34]).replace("[","").replace("]",""))
+  text = text.replace('wm2',str(individual[35]).replace("[","").replace("]",""))
+  text = text.replace('wm3',str(individual[36]).replace("[","").replace("]",""))
+  text = text.replace('wm4',str(individual[37]).replace("[","").replace("]",""))
+  text = text.replace('wm5',str(individual[38]).replace("[","").replace("]",""))
+  text = text.replace('wm6',str(individual[39]).replace("[","").replace("]",""))
+  text = text.replace('wn0',str(individual[40]).replace("[","").replace("]",""))
+  text = text.replace('wn1',str(individual[41]).replace("[","").replace("]",""))
+  text = text.replace('wn2',str(individual[42]).replace("[","").replace("]",""))
+  text = text.replace('wn3',str(individual[43]).replace("[","").replace("]",""))
+  text = text.replace('wrhol',str(individual[44]).replace("[","").replace("]",""))
+  text = text.replace('wrhoh',str(individual[45]).replace("[","").replace("]",""))
   fi.close
 
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./Zhou04_ADP_EW_v11 < ADP.input")
+  commands.getoutput("./Zhou04_ADP_v11 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
   if diffb == "nan" or abs(float(diffb)) >= 0.15/(1+float(count)/900):
     y = 99999.99999
     if count == 1:
       count -= 1
     print "skip this potential, because of bad boundary."
-    return y,
+    return y
 
   tdiffea = 0.0
   tdiffp  = 0.0
@@ -410,7 +420,7 @@ def example_fitness( individual ):
 
   print "Evaluate: ", y
   #print "Parameters: ", x
-  print "Parameters: x = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+","+str(individual[30])+","+str(individual[31])+","+str(individual[32])+","+str(individual[33])+","+str(individual[34])+","+str(individual[35])+","+str(individual[36])+","+str(individual[37])+","+str(individual[38])+","+str(individual[39])+","+str(individual[40])+","+str(individual[41])+","+str(individual[42])+","+str(individual[43])+","+str(individual[44])+","+str(individual[45])+","+str(individual[46])+","+str(individual[47])+","+str(individual[48])+","+str(individual[49])+","+str(individual[50])+","+str(individual[51])+","+str(individual[52])+","+str(individual[53])+","+str(individual[54])+","+str(individual[55])+","+str(individual[56])+","+str(individual[57])+","+str(individual[58])+","+str(individual[59])+","+str(individual[60])+","+str(individual[61])+","+str(individual[62])+","+str(individual[63])+","+str(individual[64])+" ]"
+  print "Parameters: x = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+","+str(individual[30])+","+str(individual[31])+","+str(individual[32])+","+str(individual[33])+","+str(individual[34])+","+str(individual[35])+","+str(individual[36])+","+str(individual[37])+","+str(individual[38])+","+str(individual[39])+","+str(individual[40])+","+str(individual[41])+","+str(individual[42])+","+str(individual[43])+","+str(individual[44])+","+str(individual[45])+" ]"
   print "------------------------"
 
   return y

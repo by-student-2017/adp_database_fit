@@ -244,7 +244,7 @@ def example_fitness( individual ):
     if count == 1:
       count -= 1
     print "skip this potential, because of bad boundary."
-    return y,
+    return y
 
   tdiffea = 0.0
   tdiffp  = 0.0
@@ -410,7 +410,7 @@ def example_fitness( individual ):
 
   print "Evaluate: ", y
   #print "Parameters: ", x
-  print "Parameters: z0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+","+str(individual[30])+","+str(individual[31])+","+str(individual[32])+","+str(individual[33])+","+str(individual[34])+","+str(individual[35])+","+str(individual[36])+","+str(individual[37])+","+str(individual[38])+","+str(individual[39])+","+str(individual[40])+","+str(individual[41])+","+str(individual[42])+","+str(individual[43])+","+str(individual[44])+","+str(individual[45])+","+str(individual[46])+","+str(individual[47])+","+str(individual[48])+","+str(individual[49])+","+str(individual[50])+","+str(individual[51])+","+str(individual[52])+","+str(individual[53])+","+str(individual[54])+","+str(individual[55])+","+str(individual[56])+","+str(individual[57])+","+str(individual[58])+","+str(individual[59])+","+str(individual[60])+","+str(individual[61])+","+str(individual[62])+","+str(individual[63])+","+str(individual[64])+" ]"
+  print "Parameters: x = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+","+str(individual[22])+","+str(individual[23])+","+str(individual[24])+","+str(individual[25])+","+str(individual[26])+","+str(individual[27])+","+str(individual[28])+","+str(individual[29])+","+str(individual[30])+","+str(individual[31])+","+str(individual[32])+","+str(individual[33])+","+str(individual[34])+","+str(individual[35])+","+str(individual[36])+","+str(individual[37])+","+str(individual[38])+","+str(individual[39])+","+str(individual[40])+","+str(individual[41])+","+str(individual[42])+","+str(individual[43])+","+str(individual[44])+","+str(individual[45])+","+str(individual[46])+","+str(individual[47])+","+str(individual[48])+","+str(individual[49])+","+str(individual[50])+","+str(individual[51])+","+str(individual[52])+","+str(individual[53])+","+str(individual[54])+","+str(individual[55])+","+str(individual[56])+","+str(individual[57])+","+str(individual[58])+","+str(individual[59])+","+str(individual[60])+","+str(individual[61])+","+str(individual[62])+","+str(individual[63])+","+str(individual[64])+" ]"
   print "------------------------"
 
   return y
