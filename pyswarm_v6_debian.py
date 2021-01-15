@@ -130,7 +130,7 @@ print "initial parameters: ",x
 
 count = 0
 #----------------------------------------------------------------------
-n_gene = 52 # number of parameters
+n_gene = int(len(x)) # number of parameters
 min_ind = numpy.ones(n_gene) * -1.0
 max_ind = numpy.ones(n_gene) *  1.0
 min_max_ind = []

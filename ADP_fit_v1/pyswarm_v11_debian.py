@@ -144,7 +144,7 @@ print "initial parameters: ", x
 
 count = 0
 #----------------------------------------------------------------------
-n_gene = 65 # number of parameters
+n_gene = int(len(x)) # number of parameters
 min_ind = numpy.ones(n_gene) * -1.0
 max_ind = numpy.ones(n_gene) *  1.0
 min_max_ind = []
@@ -244,7 +244,7 @@ def example_fitness( individual ):
     if count == 1:
       count -= 1
     print "skip this potential, because of bad boundary."
-    return y,
+    return y
 
   tdiffea = 0.0
   tdiffp  = 0.0
