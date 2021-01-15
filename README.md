@@ -243,7 +243,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Re/g' ADP.input
 	!cp in.lmp_temp_v2 in.lmp_temp
-	!python2 nm_v11_gc.py
+	!python2 nm_v11_gc_ew.py
 	!cat ADP_code_v11
 
 
@@ -262,11 +262,12 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Re/g' ADP.input
 	!cp in.lmp_temp_v2 in.lmp_temp
-	!python2 nm_v21_gc.py
+	!python2 nm_v21_gc_ew.py
 	!cat ADP_code_v21
 
 
 ## fit parameters by Particle Swarm Optimization (PSO)
+	!pip2 install pyswarm==0.6
 	%cd /content/adp_database_fit
 	!cp ./ADP_fit_v1/ADP_code_v11.init ./
 	!cp ./ADP_fit_v1/ADP_code_v11.temp ./
@@ -281,11 +282,12 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Re/g' ADP.input
 	!cp in.lmp_temp_v2 in.lmp_temp
-	!python2 pyswarm_v11_gc.py
+	!python2 pyswarm_v11_gc_euw.py
 	!cat ADP_code_v11
 
 
 ## fit parameters by Particle Swarm Optimization (PSO)
+	!pip2 install pyswarm==0.6
 	%cd /content/adp_database_fit
 	!cp ./ADP_fit_v2/ADP_code_v21.init ./
 	!cp ./ADP_fit_v2/ADP_code_v21.temp ./
@@ -300,7 +302,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Re/g' ADP.input
 	!cp in.lmp_temp_v2 in.lmp_temp
-	!python2 pyswarm_v21_gc.py
+	!python2 pyswarm_v21_gc_euw.py
 	!cat ADP_code_v21
 
 
