@@ -228,7 +228,7 @@ def example_fitness( individual ):
   commands.getoutput("./Zhou04_ADP_1 < ADP.input")
   diffb  = commands.getoutput("cat diff.dat")
   if diffb == "nan" or abs(float(diffb)) >= 0.15/(1+float(count)/900):
-    y = 99999.99999
+    y = 99999.99999 + sum(map(lambda x: x**2, individual))
     if count == 1:
       count -= 1
     print "skip this potential, because of bad boundary."
