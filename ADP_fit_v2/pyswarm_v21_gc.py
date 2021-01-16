@@ -1,4 +1,6 @@
-from scipy import optimize
+#from scipy import optimize
+#from fstpso import FuzzyPSO
+from pyswarm import pso
 import numpy
 import numpy as np
 import commands

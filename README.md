@@ -241,7 +241,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
-	!sed -i 's/Xx/Re/g' ADP.input
+	!sed -i 's/Xx/Rh/g' ADP.input
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 nm_v11_gc_ew.py
 	!cat ADP_code_v11
@@ -260,7 +260,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
-	!sed -i 's/Xx/Re/g' ADP.input
+	!sed -i 's/Xx/Rh/g' ADP.input
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 nm_v21_gc_ew.py
 	!cat ADP_code_v21
@@ -271,7 +271,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	%cd /content/adp_database_fit
 	!cp ./ADP_fit_v1/ADP_code_v11.init ./
 	!cp ./ADP_fit_v1/ADP_code_v11.temp ./
-	!cp ./ADP_fit_v1/pyswarm_v11_gc.py ./
+	!cp ./ADP_fit_v1/pyswarm_v11_gc_euw.py ./
 	!cp ./ADP_fit_v1/Zhou04_create_adp_v11.f ./
 	!cp ./ADP_fit_v1/setinp ./
 	!cp ./ADP_fit_v1/struct.dat ./
@@ -280,7 +280,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
-	!sed -i 's/Xx/Re/g' ADP.input
+	!sed -i 's/Xx/Rh/g' ADP.input
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 pyswarm_v11_gc_euw.py
 	!cat ADP_code_v11
@@ -291,7 +291,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	%cd /content/adp_database_fit
 	!cp ./ADP_fit_v2/ADP_code_v21.init ./
 	!cp ./ADP_fit_v2/ADP_code_v21.temp ./
-	!cp ./ADP_fit_v2/pyswarm_v21_gc.py ./
+	!cp ./ADP_fit_v2/pyswarm_v21_gc_euw.py ./
 	!cp ./ADP_fit_v2/Zhou04_create_adp_v21.f ./
 	!cp ./ADP_fit_v2/setinp ./
 	!cp ./ADP_fit_v2/struct.dat ./
@@ -300,7 +300,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
-	!sed -i 's/Xx/Re/g' ADP.input
+	!sed -i 's/Xx/Rh/g' ADP.input
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 pyswarm_v21_gc_euw.py
 	!cat ADP_code_v21

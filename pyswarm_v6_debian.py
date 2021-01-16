@@ -1,5 +1,7 @@
 import random
-from deap import creator, base, tools, algorithms
+#from deap import creator, base, tools, algorithms
+#from fstpso import FuzzyPSO
+from pyswarm import pso
 import numpy
 import numpy as np
 import commands
