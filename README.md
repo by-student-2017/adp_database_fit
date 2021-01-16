@@ -242,7 +242,6 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Rh/g' ADP.input
-	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 nm_v11_gc_ew.py
 	!cat ADP_code_v11
 
@@ -261,7 +260,6 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Rh/g' ADP.input
-	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 nm_v21_gc_ew.py
 	!cat ADP_code_v21
 
@@ -281,7 +279,6 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Rh/g' ADP.input
-	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 pyswarm_v11_gc_euw.py
 	!cat ADP_code_v11
 
@@ -301,7 +298,6 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Rh/g' ADP.input
-	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 pyswarm_v21_gc_euw.py
 	!cat ADP_code_v21
 
