@@ -46,7 +46,7 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       atomtype='none'
       read(5,funccard)
       if (atomtype .eq. 'none') goto 1200
-      open(unit=10,file='ADP_code_v11',form='FORMATTED',status='OLD')
+      open(unit=10,file='ADP_code_v21',form='FORMATTED',status='OLD')
 11    read(10,9501,end=1210)atommatch
 9501  format(a80)
       if (atomtype .eq. atommatch) then
