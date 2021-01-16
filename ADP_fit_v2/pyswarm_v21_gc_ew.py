@@ -187,8 +187,12 @@ min_max_ind = []
 for i in range(n_gene):
   #min_ind[i] = b1[i][0]
   #max_ind[i] = b1[i][1]
-  min_ind[i] = float(x[i]) - float(abs(x[i]))*0.1
-  max_ind[i] = float(x[i]) + float(abs(x[i]))*0.1 + 0.000001
+  if (i < 30):
+    min_ind[i] = float(x[i]) - float(abs(x[i]))*0.1
+    max_ind[i] = float(x[i]) + float(abs(x[i]))*0.1 + 0.000001
+  else:
+    min_ind[i] = float(x[i]) - float(abs(x[i]))*0.01
+    max_ind[i] = float(x[i]) + float(abs(x[i]))*0.01 + 0.000001
   #print "search area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
   min_max_ind.append([min_ind[i],max_ind[i]])
 print "search area of paramter ", min_max_ind
