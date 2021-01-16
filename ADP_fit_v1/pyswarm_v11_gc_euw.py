@@ -8,7 +8,6 @@ import commands
 import sys
 #----------------------------------------------------------------------
 file_tmp = 'ADP_code_v11.tmp'
-file_tmp_ew = 'ADP_code_ew_v11.tmp'
 file_inp = 'ADP_code_v11'
 
 cif2cell_adress = "cif2cell"
@@ -171,7 +170,7 @@ def example_fitness( individual ):
   count += 1
   print count
 
-  fi = open(file_tmp_ew,'r')
+  fi = open(file_tmp,'r')
   text = fi.read().replace('re',str(individual[0]).replace("[","").replace("]",""))
   text = text.replace('fe',str(individual[1]).replace("[","").replace("]",""))
   text = text.replace('Frhoe',str(individual[2]).replace("[","").replace("]",""))
