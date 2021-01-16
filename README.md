@@ -225,7 +225,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ADP.input_temp ADP.input
 	!sed -i 's/Xx/Cr/g' ADP.input
 	!python2 pyswarm_v6_gc.py
-	!cat EAM_code
+	!cat ADP_code
 
 
 ## fit parameters by NM method
@@ -236,7 +236,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ./ADP_fit_v1/Zhou04_create_adp_v11.f ./
 	!cp ./ADP_fit_v1/setinp ./
 	!cp ./ADP_fit_v1/struct.dat ./
-	!gfortran -o Zhou04_EAM_v11 Zhou04_create_adp_v11.f
+	!gfortran -o Zhou04_ADP_v11 Zhou04_create_adp_v11.f
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
@@ -255,7 +255,7 @@ commands.getoutput("cp ./data/data.in.DC data.in_423K")
 	!cp ./ADP_fit_v2/Zhou04_create_adp_v21.f ./
 	!cp ./ADP_fit_v2/setinp ./
 	!cp ./ADP_fit_v2/struct.dat ./
-	!gfortran -o Zhou04_EAM_v21 Zhou04_create_adp_v21.f
+	!gfortran -o Zhou04_ADP_v21 Zhou04_create_adp_v21.f
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
