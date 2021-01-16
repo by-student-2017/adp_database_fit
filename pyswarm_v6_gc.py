@@ -220,7 +220,7 @@ def example_fitness( individual ):
     if count == 1:
       count -= 1
     print "skip this potential, because of bad boundary."
-    return y,
+    return y
 
   tdiffea = 0.0
   tdiffp  = 0.0
