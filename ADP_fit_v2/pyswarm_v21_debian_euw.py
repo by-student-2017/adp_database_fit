@@ -7,6 +7,8 @@ import numpy as np
 import commands
 import sys
 #----------------------------------------------------------------------
+fix_atom_position = 0 # 0: Off, 1: On
+#----------------------------------------------------------------------
 file_tmp = 'ADP_code_v21.tmp'
 file_inp = 'ADP_code_v21'
 
@@ -276,7 +278,10 @@ def example_fitness( individual ):
       error_flag3 = commands.getoutput("grep 'ERROR' log.lammps")
       print error_flag1, error_flag2, error_flag3
       if error_flag1 != "" and error_flag2 == "" and error_flag3 == "":
-        commands.getoutput("cp ./cfg/run.0.cfg run.50.cfg")
+        if (fix_atom_position == 1):
+          commands.getoutput("cp ./cfg/run.0.cfg run.50.cfg")
+        else:
+          commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
         commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
         commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
         commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 

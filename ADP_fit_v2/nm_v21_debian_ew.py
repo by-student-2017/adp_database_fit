@@ -3,7 +3,9 @@ import numpy
 import numpy as np
 import commands
 import sys
-
+#----------------------------------------------------------------------
+fix_atom_position = 0 # 0: Off, 1: On
+#----------------------------------------------------------------------
 print "Attention"
 print "this code need Zhou04_ADP_EW"
 print "  In the first time, need to command 'gfortran Zhou04_create_adp_v21.f -o Zhou04_ADP_v21'"
@@ -252,7 +254,10 @@ def f(z):
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
-      commands.getoutput("cp ./cfg/run.0.cfg run.50.cfg")
+      if (fix_atom_position == 1):
+        commands.getoutput("cp ./cfg/run.0.cfg run.50.cfg")
+      else:
+        commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
       commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
       commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
       commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
